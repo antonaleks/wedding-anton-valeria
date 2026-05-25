@@ -271,7 +271,7 @@
     margin: 0 auto 0;
     aspect-ratio: 3 / 2;
     background: var(--paper);
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     box-shadow: 0 30px 70px -50px rgba(33,25,19,0.5);
   }
@@ -284,11 +284,13 @@
   }
   .couple .pencil-overlay {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: -6% -8% -8% -8%;
+    width: 116%;
+    height: 114%;
     pointer-events: none;
+    overflow: visible;
   }
+  .pencil-overlay { overflow: visible; }
   .couple__caption {
     width: var(--col-w);
     max-width: 1180px;
@@ -637,112 +639,142 @@
         сердечко в центре (поверх их рук-сердечка)
         слева теннисные ракетки у Антона, справа винил + плёночная камера у Леры
       -->
-      <svg class="pencil-overlay" viewBox="0 0 180 120" preserveAspectRatio="none" aria-hidden="true">
+      <!--
+        viewBox 200 × 130 (учтён inset overlay)
+        photo box: x ∈ [14, 186], y ∈ [7, 121]
+        Антон слева (лицо ~x=80), Лера справа (лицо ~x=140), руки-сердце в центре чуть ниже центра (x≈110, y≈75)
+        предметы разбросаны с rotate, выходят за рамки
+      -->
+      <svg class="pencil-overlay" viewBox="0 0 200 130" preserveAspectRatio="none" aria-hidden="true">
         <g filter="url(#pencilFilter)" fill="none" stroke-linecap="round" stroke-linejoin="round">
 
-          <!-- сердечко, основная обводка brass -->
-          <path class="drawPath" data-dur="2200" data-delay="400"
-                stroke="var(--pencil-3)" stroke-width="1.5"
-                d="M 90,84
-                   C 78,98 60,78 70,66
-                   C 78,56 88,60 90,70
-                   C 92,60 102,56 110,66
-                   C 120,78 102,98 90,84 Z" />
-          <!-- сердечко, второй слой, оливковый чуть внутри -->
-          <path class="drawPath" data-dur="1800" data-delay="1200"
-                stroke="var(--pencil-2)" stroke-width="1.0"
-                d="M 90,82
-                   C 80,94 64,77 72,68
-                   C 79,60 88,63 90,72
-                   C 92,63 101,60 108,68
-                   C 116,77 100,94 90,82 Z" />
+          <!-- ============ СЕРДЦЕ ИЗ РУК ============ -->
+          <!-- основная обводка: hand-heart форма с заострённым низом, два горба сверху, cleft в центре -->
+          <path class="drawPath" data-dur="2400" data-delay="400"
+                stroke="var(--pencil-3)" stroke-width="1.6"
+                d="M 110,108
+                   C 88,90 70,76 70,60
+                   C 70,46 86,42 96,52
+                   C 102,58 106,62 110,68
+                   C 114,62 118,58 124,52
+                   C 134,42 150,46 150,60
+                   C 150,76 132,90 110,108 Z" />
+          <!-- второй pencil слой, олива чуть внутри (двойной карандаш) -->
+          <path class="drawPath" data-dur="2000" data-delay="1300"
+                stroke="var(--pencil-1)" stroke-width="1.0"
+                d="M 110,104
+                   C 90,88 74,75 74,62
+                   C 74,50 88,47 96,55
+                   C 102,60 106,64 110,70
+                   C 114,64 118,60 124,55
+                   C 132,47 146,50 146,62
+                   C 146,75 130,88 110,104 Z" />
+          <!-- намёки на стыки пальцев на горбах -->
+          <path class="drawPath" data-dur="900" data-delay="2800"
+                stroke="var(--pencil-2)" stroke-width="0.7"
+                d="M 84,48 L 82,54
+                   M 90,48 L 90,55
+                   M 130,48 L 130,55
+                   M 136,48 L 138,54
+                   M 108,68 L 110,76
+                   M 112,68 L 110,76" />
 
-          <!-- === ТЕННИС (Антон, слева) === -->
-          <!-- ракетка 1: овал-сетка + ручка (наклон \) -->
-          <path class="drawPath" data-dur="1800" data-delay="2400"
-                stroke="var(--pencil-1)" stroke-width="1.3"
-                d="M 18,40
-                   C 10,46 8,58 14,66
-                   C 20,74 32,72 38,64
-                   C 44,56 42,44 34,38
-                   C 28,33 22,34 18,40 Z
-                   M 36,64 L 50,82" />
-          <!-- ракетка 1: струны -->
-          <path class="drawPath" data-dur="1300" data-delay="3600"
-                stroke="var(--pencil-2)" stroke-width="0.6"
-                d="M 14,46 L 38,58
-                   M 14,52 L 38,64
-                   M 14,58 L 36,68
-                   M 20,38 L 32,72
-                   M 26,36 L 32,72
-                   M 32,38 L 28,70" />
+          <!-- ============ ТЕННИС (Антон, слева, разбросано) ============ -->
+          <!-- ракетка 1, наклон -28° -->
+          <g transform="rotate(-28 22 50)">
+            <path class="drawPath" data-dur="1800" data-delay="3200"
+                  stroke="var(--pencil-1)" stroke-width="1.5"
+                  d="M 22,30
+                     C 8,30 -2,42 0,56
+                     C 2,70 18,72 30,66
+                     C 42,60 44,42 36,32
+                     C 32,28 27,28 22,30 Z
+                     M 32,68 L 56,98" />
+            <path class="drawPath" data-dur="1300" data-delay="4400"
+                  stroke="var(--pencil-2)" stroke-width="0.8"
+                  d="M 2,42 L 38,55
+                     M 0,50 L 40,62
+                     M 2,58 L 38,68
+                     M 10,30 L 18,72
+                     M 18,28 L 22,72
+                     M 26,30 L 28,70
+                     M 34,32 L 32,68" />
+          </g>
 
-          <!-- ракетка 2: пересечённая (наклон /) -->
-          <path class="drawPath" data-dur="1800" data-delay="3000"
-                stroke="var(--pencil-1)" stroke-width="1.3"
-                d="M 38,38
-                   C 30,32 18,34 14,42
-                   C 10,50 16,60 24,64
-                   C 32,68 42,64 44,56
-                   C 46,50 44,42 38,38 Z
-                   M 14,42 L 2,58" />
+          <!-- ракетка 2, наклон +32° -->
+          <g transform="rotate(32 35 88)">
+            <path class="drawPath" data-dur="1800" data-delay="3800"
+                  stroke="var(--pencil-1)" stroke-width="1.5"
+                  d="M 35,70
+                     C 22,70 14,82 18,94
+                     C 22,106 38,108 48,100
+                     C 58,92 56,76 48,72
+                     C 44,69 39,69 35,70 Z
+                     M 18,94 L -2,120" />
+            <path class="drawPath" data-dur="1100" data-delay="5000"
+                  stroke="var(--pencil-2)" stroke-width="0.7"
+                  d="M 20,80 L 52,90
+                     M 18,86 L 54,96
+                     M 22,72 L 28,108
+                     M 30,70 L 36,108
+                     M 38,72 L 42,106" />
+          </g>
 
-          <!-- теннисный мячик -->
-          <path class="drawPath" data-dur="900" data-delay="4400"
-                stroke="var(--pencil-4)" stroke-width="1.0"
-                d="M 8,82
-                   C 4,86 4,92 8,94
-                   C 12,96 16,92 16,88
-                   C 16,84 12,80 8,82 Z
-                   M 7,84 C 10,87 13,90 17,90
-                   M 8,94 C 9,91 12,87 15,85" />
+          <!-- теннисный мячик, чуть отдельно -->
+          <g transform="rotate(-15 60 22)">
+            <path class="drawPath" data-dur="900" data-delay="5600"
+                  stroke="var(--pencil-4)" stroke-width="1.2"
+                  d="M 60,12
+                     C 52,12 48,22 52,28
+                     C 56,34 66,32 68,26
+                     C 70,20 66,12 60,12 Z
+                     M 54,14 C 58,20 64,24 68,24
+                     M 52,28 C 56,24 62,18 68,18" />
+          </g>
 
-          <!-- === ВИНИЛ + ФОТОКАМЕРА (Лера, справа) === -->
-          <!-- винил: внешний круг -->
-          <path class="drawPath" data-dur="1700" data-delay="2400"
-                stroke="var(--pencil-1)" stroke-width="1.3"
-                d="M 162,42
-                   C 152,42 144,50 144,60
-                   C 144,70 152,78 162,78
-                   C 172,78 180,70 180,60
-                   C 180,50 172,42 162,42 Z" />
-          <!-- винил: бороздки -->
-          <path class="drawPath" data-dur="1500" data-delay="3600"
-                stroke="var(--pencil-2)" stroke-width="0.55"
-                d="M 162,47 C 155,47 148,53 148,60 C 148,67 155,73 162,73
-                   M 162,50 C 156,50 151,55 151,60 C 151,65 156,70 162,70
-                   M 162,53 C 158,53 154,56 154,60 C 154,64 158,67 162,67" />
-          <!-- винил: центр + дырка -->
-          <path class="drawPath" data-dur="700" data-delay="4500"
-                stroke="var(--pencil-3)" stroke-width="1.4"
-                d="M 162,57
-                   C 159,57 159,63 162,63
-                   C 165,63 165,57 162,57 Z" />
+          <!-- ============ ВИНИЛ + КАМЕРА (Лера, справа, разбросано) ============ -->
+          <!-- винил, наклон +18° -->
+          <g transform="rotate(18 178 36)">
+            <path class="drawPath" data-dur="2000" data-delay="3200"
+                  stroke="var(--pencil-1)" stroke-width="1.5"
+                  d="M 178,12
+                     C 162,12 152,24 152,36
+                     C 152,52 164,62 178,62
+                     C 192,62 204,52 204,36
+                     C 204,24 194,12 178,12 Z" />
+            <path class="drawPath" data-dur="1700" data-delay="4900"
+                  stroke="var(--pencil-2)" stroke-width="0.7"
+                  d="M 178,18 C 168,18 158,26 158,36 C 158,46 168,54 178,54
+                     M 178,22 C 170,22 162,28 162,36 C 162,44 170,50 178,50
+                     M 178,26 C 172,26 168,30 168,36 C 168,42 172,46 178,46" />
+            <path class="drawPath" data-dur="700" data-delay="6400"
+                  stroke="var(--pencil-3)" stroke-width="1.6"
+                  d="M 178,32
+                     C 174,32 174,40 178,40
+                     C 182,40 182,32 178,32 Z" />
+          </g>
 
-          <!-- плёночная камера: корпус -->
-          <path class="drawPath" data-dur="1700" data-delay="4800"
-                stroke="var(--pencil-1)" stroke-width="1.3"
-                d="M 144,88
-                   L 178,88
-                   L 178,108
-                   L 144,108 Z
-                   M 152,88 L 154,84 L 168,84 L 170,88" />
-          <!-- объектив -->
-          <path class="drawPath" data-dur="1000" data-delay="6200"
-                stroke="var(--pencil-3)" stroke-width="1.3"
-                d="M 161,98
-                   C 154,98 154,108 161,108
-                   C 168,108 168,98 161,98 Z
-                   M 161,100 C 157,100 157,106 161,106 C 165,106 165,100 161,100 Z" />
-          <!-- видоискатель -->
-          <path class="drawPath" data-dur="700" data-delay="7000"
-                stroke="var(--pencil-2)" stroke-width="0.9"
-                d="M 148,92 L 154,92 L 154,96 L 148,96 Z" />
-          <!-- кнопка спуска + крутилка плёнки -->
-          <path class="drawPath" data-dur="600" data-delay="7400"
-                stroke="var(--pencil-2)" stroke-width="1.0"
-                d="M 172,87 L 172,84 L 175,84 L 175,87
-                   M 145,85 L 149,85" />
+          <!-- плёночная камера, наклон -14° -->
+          <g transform="rotate(-14 175 100)">
+            <path class="drawPath" data-dur="2000" data-delay="4200"
+                  stroke="var(--pencil-1)" stroke-width="1.5"
+                  d="M 150,86
+                     L 200,86
+                     L 200,116
+                     L 150,116 Z
+                     M 162,86 L 165,80 L 185,80 L 188,86" />
+            <path class="drawPath" data-dur="1100" data-delay="6500"
+                  stroke="var(--pencil-3)" stroke-width="1.5"
+                  d="M 175,102
+                     C 165,102 165,118 175,118
+                     C 185,118 185,102 175,102 Z
+                     M 175,105 C 169,105 169,115 175,115 C 181,115 181,105 175,105 Z" />
+            <path class="drawPath" data-dur="800" data-delay="7700"
+                  stroke="var(--pencil-2)" stroke-width="1.1"
+                  d="M 156,90 L 164,90 L 164,96 L 156,96 Z
+                     M 192,84 L 192,80 L 196,80 L 196,84
+                     M 152,82 L 158,82" />
+          </g>
         </g>
       </svg>
     </div>
@@ -804,43 +836,44 @@
                   stroke="var(--pencil-1)" stroke-width="1.4"
                   d="M 12,23 L 112,23 L 112,313 L 12,313 Z" />
 
-            <!-- свадебное платье: широкий А-силуэт от лифа до подола -->
-            <path class="drawPath" data-dur="2200" data-delay="1300"
-                  stroke="var(--pencil-4)" stroke-width="1.6"
-                  d="M 48,115
-                     C 46,125 44,140 44,160
-                     C 44,180 45,190 45,195
-                     L 38,196
-                     C 36,196 36,200 38,200
-                     L 46,199
-                     L 38,204 L 46,204
-                     L 38,208 L 46,208
-                     L 6,308
-                     L 118,308
-                     L 78,208 L 86,208
-                     L 78,204 L 86,204
-                     L 78,199 L 86,200
-                     C 88,200 88,196 86,196
-                     L 79,195
-                     C 79,190 80,180 80,160
-                     C 80,140 78,125 76,115
-                     C 70,118 62,120 62,125
-                     C 62,120 54,118 48,115 Z" />
+            <!-- свадебное платье: очень широкий А-силуэт, юбка выходит за рамку фото -->
+            <path class="drawPath" data-dur="2400" data-delay="1300"
+                  stroke="var(--pencil-4)" stroke-width="1.8"
+                  d="M 44,108
+                     C 42,120 40,138 40,162
+                     C 40,184 42,196 42,202
+                     L 32,204
+                     C 30,204 30,208 32,208
+                     L 42,206
+                     L 32,212 L 42,212
+                     L 32,216 L 42,216
+                     L -20,332
+                     L 144,332
+                     L 82,216 L 92,216
+                     L 82,212 L 92,212
+                     L 82,206 L 92,208
+                     C 94,208 94,204 92,204
+                     L 82,202
+                     C 82,196 84,184 84,162
+                     C 84,138 82,120 80,108
+                     C 72,112 64,116 62,124
+                     C 62,116 52,112 44,108 Z" />
 
             <!-- линия талии-пояса, оливковый акцент -->
-            <path class="drawPath" data-dur="900" data-delay="3300"
-                  stroke="var(--pencil-2)" stroke-width="1.1"
-                  d="M 45,196 L 79,196
-                     M 50,193 C 56,191 68,191 74,193" />
+            <path class="drawPath" data-dur="900" data-delay="3500"
+                  stroke="var(--pencil-2)" stroke-width="1.2"
+                  d="M 42,204 L 82,204
+                     M 48,200 C 56,198 68,198 76,200" />
 
-            <!-- вертикальные складки юбки -->
-            <path class="drawPath" data-dur="1400" data-delay="4000"
-                  stroke="var(--pencil-4)" stroke-width="0.8"
-                  d="M 52,212 L 32,300
-                     M 58,212 L 50,302
-                     M 62,214 L 62,304
-                     M 66,212 L 74,302
-                     M 72,212 L 92,300" />
+            <!-- вертикальные складки юбки, разбегаются веером -->
+            <path class="drawPath" data-dur="1600" data-delay="4200"
+                  stroke="var(--pencil-4)" stroke-width="1.0"
+                  d="M 50,222 L 8,322
+                     M 56,222 L 36,326
+                     M 60,222 L 56,328
+                     M 64,222 L 72,328
+                     M 70,222 L 92,326
+                     M 76,222 L 122,322" />
 
             <!-- цветочная гирлянда: стебель, идёт по правому краю и заходит за рамку -->
             <path class="drawPath" data-dur="2000" data-delay="5200"
@@ -928,81 +961,90 @@
                      M 78,17 L 80,-3
                      M 88,17 L 91,0" />
 
-            <!-- пианино: рояль вид сбоку + клавиатура спереди -->
-            <!-- корпус (крышка) -->
-            <path class="drawPath" data-dur="2200" data-delay="2600"
-                  stroke="var(--pencil-1)" stroke-width="1.6"
-                  d="M 8,168
-                     L 116,168
-                     L 116,184
-                     L 8,184 Z
-                     M 8,184 L 116,184" />
+            <!-- пианино: крупный рояль, выходит за рамку фото для объёма -->
+            <!-- корпус (крышка передняя) -->
+            <path class="drawPath" data-dur="2400" data-delay="2600"
+                  stroke="var(--pencil-1)" stroke-width="1.8"
+                  d="M -8,166
+                     L 132,166
+                     L 132,186
+                     L -8,186 Z
+                     M -8,186 L 132,186" />
 
             <!-- клавиатура -->
-            <path class="drawPath" data-dur="1300" data-delay="4500"
-                  stroke="var(--pencil-4)" stroke-width="1.3"
-                  d="M 10,184 L 114,184
-                     L 114,202 L 10,202 Z" />
+            <path class="drawPath" data-dur="1500" data-delay="4800"
+                  stroke="var(--pencil-4)" stroke-width="1.5"
+                  d="M -4,186 L 128,186
+                     L 128,208 L -4,208 Z" />
 
             <!-- белые клавиши -->
-            <path class="drawPath" data-dur="1600" data-delay="5500"
-                  stroke="var(--pencil-2)" stroke-width="0.9"
-                  d="M 18,184 L 18,202
-                     M 26,184 L 26,202
-                     M 34,184 L 34,202
-                     M 42,184 L 42,202
-                     M 50,184 L 50,202
-                     M 58,184 L 58,202
-                     M 66,184 L 66,202
-                     M 74,184 L 74,202
-                     M 82,184 L 82,202
-                     M 90,184 L 90,202
-                     M 98,184 L 98,202
-                     M 106,184 L 106,202" />
+            <path class="drawPath" data-dur="1800" data-delay="6000"
+                  stroke="var(--pencil-2)" stroke-width="1.0"
+                  d="M 4,186 L 4,208
+                     M 12,186 L 12,208
+                     M 20,186 L 20,208
+                     M 28,186 L 28,208
+                     M 36,186 L 36,208
+                     M 44,186 L 44,208
+                     M 52,186 L 52,208
+                     M 60,186 L 60,208
+                     M 68,186 L 68,208
+                     M 76,186 L 76,208
+                     M 84,186 L 84,208
+                     M 92,186 L 92,208
+                     M 100,186 L 100,208
+                     M 108,186 L 108,208
+                     M 116,186 L 116,208
+                     M 124,186 L 124,208" />
 
             <!-- чёрные клавиши, толстые -->
-            <path class="drawPath" data-dur="1300" data-delay="6800"
-                  stroke="var(--pencil-3)" stroke-width="2.4"
-                  d="M 22,184 L 22,193
-                     M 30,184 L 30,193
-                     M 46,184 L 46,193
-                     M 54,184 L 54,193
-                     M 62,184 L 62,193
-                     M 78,184 L 78,193
-                     M 86,184 L 86,193
-                     M 102,184 L 102,193" />
+            <path class="drawPath" data-dur="1500" data-delay="7500"
+                  stroke="var(--pencil-3)" stroke-width="2.8"
+                  d="M 8,186  L 8,197
+                     M 16,186 L 16,197
+                     M 32,186 L 32,197
+                     M 40,186 L 40,197
+                     M 48,186 L 48,197
+                     M 64,186 L 64,197
+                     M 72,186 L 72,197
+                     M 88,186 L 88,197
+                     M 96,186 L 96,197
+                     M 104,186 L 104,197
+                     M 120,186 L 120,197" />
 
-            <!-- ножки -->
-            <path class="drawPath" data-dur="900" data-delay="8000"
-                  stroke="var(--pencil-1)" stroke-width="1.3"
-                  d="M 14,202 L 14,228
-                     M 110,202 L 110,228
-                     M 8,230  L 26,230
-                     M 98,230 L 116,230" />
+            <!-- ножки массивные -->
+            <path class="drawPath" data-dur="1100" data-delay="9000"
+                  stroke="var(--pencil-1)" stroke-width="1.6"
+                  d="M 4,208 L 4,242
+                     M 124,208 L 124,242
+                     M -6,244  L 18,244
+                     M 110,244 L 134,244
+                     M 62,208 L 62,238
+                     M 54,240 L 70,240" />
 
-            <!-- крышка-пюпитр поднята сверху рояля -->
-            <path class="drawPath" data-dur="1000" data-delay="9000"
-                  stroke="var(--pencil-1)" stroke-width="1.2"
-                  d="M 28,168 L 38,150 L 96,150 L 96,168
-                     M 38,150 L 96,150" />
+            <!-- крышка-пюпитр поднята -->
+            <path class="drawPath" data-dur="1200" data-delay="10100"
+                  stroke="var(--pencil-1)" stroke-width="1.4"
+                  d="M 16,166 L 30,140 L 108,140 L 108,166
+                     M 30,140 L 108,140" />
 
-            <!-- ноты-восьмушки парят над пюпитром, бордо -->
-            <path class="drawPath" data-dur="1100" data-delay="10000"
-                  stroke="var(--pencil-3)" stroke-width="1.1"
-                  d="M 48,144
-                     C 44,146 44,151 50,151
-                     C 53,151 53,146 50,146
-                     L 50,134 L 60,131 L 60,143
-                     C 56,144 56,150 62,150
-                     C 65,150 65,145 62,145
-                     M 50,134 L 60,131" />
+            <!-- ноты-восьмушки -->
+            <path class="drawPath" data-dur="1200" data-delay="11300"
+                  stroke="var(--pencil-3)" stroke-width="1.4"
+                  d="M 46,132
+                     C 42,134 42,140 48,140
+                     C 51,140 51,134 48,134
+                     L 48,118 L 64,114 L 64,132
+                     C 60,134 60,140 66,140
+                     C 69,140 69,134 66,134
+                     M 48,118 L 64,114" />
 
-            <!-- нотный стан, тонкие -->
-            <path class="drawPath" data-dur="900" data-delay="10800"
-                  stroke="var(--pencil-2)" stroke-width="0.5"
-                  d="M 30,158 L 78,158
-                     M 30,161 L 78,161
-                     M 30,164 L 78,164" />
+            <!-- нотный стан -->
+            <path class="drawPath" data-dur="1100" data-delay="12300"
+                  stroke="var(--pencil-2)" stroke-width="0.7"
+                  d="M 24,152 L 92,152
+                     M 24,156 L 92,156
+                     M 24,160 L 92,160" />
           </g>
         </svg>
       </div>
