@@ -1,0 +1,9 @@
+.DS_Store
+*.mp4
+# исходные неоптимизированные файлы (копии лежат в assets/photos/)
+IMG_*.PNG
+IMG_*.png
+photo_*.jpeg
+Лера.png
+colors.jpeg
+# служебные доки оставляем (SKILL.md, structure.md, agent.md, reference-prototype.html)

@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Анна и Александр · MMXXVI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ivory:    #F2EDE4;
+    --paper:    #ECE5D8;
+    --espresso: #211913;
+    --ink:      #2A2018;
+    --olive:    #6E725C;
+    --sage:     #8C8E75;
+    --brass:    #A9874D;
+    --warm-gray:#8C8478;
+    --line:     #211913;
+
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --ui: 'Inter', -apple-system, system-ui, sans-serif;
+
+    --col-w: min(1180px, 92vw);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--display);
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    overflow-x: hidden;
+  }
+
+  /* ---------- paper texture + grain ---------- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(169,135,77,0.04), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(110,114,92,0.05), transparent 55%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.13  0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  main { position: relative; z-index: 3; }
+
+  /* ---------- ui primitives ---------- */
+  .container {
+    width: var(--col-w);
+    margin: 0 auto;
+  }
+
+  .caps {
+    font-family: var(--ui);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .caps--mute { color: var(--warm-gray); }
+  .caps--brass { color: var(--brass); }
+
+  .rule {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--ink);
+    border: 0;
+    margin: 0;
+  }
+  .rule--center { margin-left: auto; margin-right: auto; }
+  .rule--brass { background: var(--brass); }
+  .rule--long { width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+    transform-origin: left center;
+    transition: transform .5s cubic-bezier(.22,1,.36,1), background-color .3s;
+  }
+  .link-underline:hover::after { background: var(--brass); }
+
+  /* ---------- top thin nav ---------- */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 22px 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    transition: opacity .6s ease;
+  }
+  .topbar > * { pointer-events: auto; }
+  .topbar .mono {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 12vh 5vw 8vh;
+    position: relative;
+  }
+  .hero__meta-top {
+    position: absolute;
+    top: 80px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .hero__monogram {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--brass);
+    margin: 0 0 36px;
+    letter-spacing: 0.02em;
+  }
+  .hero__title {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(54px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .hero__amp {
+    display: block;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--brass);
+    font-size: 0.55em;
+    line-height: 1;
+    margin: 0.05em 0;
+  }
+  .hero__rule {
+    width: 1px;
+    height: 64px;
+    background: var(--ink);
+    margin: 56px auto 28px;
+  }
+  .hero__meta {
+    display: flex;
+    gap: 56px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .hero__meta div { text-align: center; }
+  .hero__meta .caps { display: block; margin-bottom: 8px; }
+  .hero__meta .val {
+    font-family: var(--display);
+    font-size: 17px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .hero__scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: floatY 3.4s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 6px); }
+  }
+  .hero__scroll .arrow {
+    width: 1px; height: 36px; background: var(--ink);
+    position: relative;
+  }
+  .hero__scroll .arrow::after{
+    content:''; position:absolute; left:50%; bottom:0;
+    width:6px; height:6px;
+    border-right:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    transform: translate(-50%, 4px) rotate(45deg);
+  }
+
+  /* ---------- generic section ---------- */
+  section {
+    padding: 18vh 5vw;
+    position: relative;
+  }
+  .section-num {
+    position: absolute;
+    top: 8vh;
+    left: 5vw;
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .section-num.right { left: auto; right: 5vw; text-align: right; }
+
+  /* ---------- EPIGRAPH ---------- */
+  .epigraph {
+    text-align: center;
+    padding: 22vh 5vw;
+  }
+  .epigraph blockquote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(24px, 3.4vw, 40px);
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0 auto;
+    max-width: 820px;
+    letter-spacing: -0.005em;
+  }
+  .epigraph cite {
+    display: block;
+    margin-top: 36px;
+    font-style: normal;
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  /* ---------- MANSION ---------- */
+  .mansion {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .mansion__image-wrap {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 70px -50px rgba(33,25,19,0.5);
+  }
+  .mansion__caption {
+    width: 90%;
+    max-width: 1100px;
+    margin: 28px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .mansion__caption .title {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+  }
+
+  /* ---------- CHILDHOOD blocks ---------- */
+  .childhood {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .childhood--reverse .photo-frame { order: 2; }
+
+  .photo-frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--paper);
+    overflow: visible;
+    box-shadow: 0 24px 50px -40px rgba(33,25,19,0.5);
+  }
+  .photo-frame .photo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .photo-frame svg.overlay {
+    position: absolute;
+    inset: -8% -12% -8% -8%;
+    width: 120%;
+    height: 116%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .photo-frame .label {
+    position: absolute;
+    bottom: -42px;
+    left: 0;
+    font-family: var(--ui);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--warm-gray);
+  }
+  .child-text h3 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .child-text h3 em {
+    font-style: italic;
+    color: var(--brass);
+    font-weight: 400;
+  }
+  .child-text p {
+    font-family: var(--display);
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 18px;
+    max-width: 38ch;
+  }
+  .child-text .role {
+    margin-top: 30px;
+    display: block;
+  }
+
+  /* ---------- WHEN & WHERE ---------- */
+  .where {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 6vw;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 4vh;
+  }
+  .where .divider {
+    background: var(--ink);
+    height: 240px;
+    width: 1px;
+    margin: 12px auto 0;
+    opacity: 0.4;
+  }
+  .where .caps { margin-bottom: 20px; display: block; }
+  .where .big {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(40px, 5.4vw, 76px);
+    line-height: 1.04;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .where .big em { font-style: italic; color: var(--brass); font-weight: 400; }
+  .where .sub {
+    margin-top: 16px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .where .meta {
+    margin-top: 22px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    line-height: 1.8;
+  }
+
+  /* ---------- DRESS CODE ---------- */
+  .dress {
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .dress__head {
+    max-width: 720px;
+    margin-bottom: 90px;
+  }
+  .dress__head h2 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 1;
+    margin: 18px 0 28px;
+    letter-spacing: -0.01em;
+  }
+  .dress__head h2 em { font-style: italic; color: var(--brass); font-weight: 400; }
+  .dress__head p {
+    font-family: var(--display);
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 56ch;
+    color: var(--ink);
+    margin: 0;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 36px;
+    margin-bottom: 56px;
+  }
+  .swatch {
+    text-align: center;
+  }
+  .swatch__dot {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin-bottom: 22px;
+    position: relative;
+    box-shadow: inset 0 2px 6px rgba(255,255,255,0.18), 0 14px 28px -22px rgba(33,25,19,0.45);
+  }
+  /* hand-painted edge feel via SVG mask */
+  .swatch__dot::before {
+    content:'';
+    position:absolute; inset:-3px;
+    border-radius: 50%;
+    background: inherit;
+    filter: blur(3px);
+    opacity: 0.5;
+    z-index: -1;
+  }
+  .swatch__name {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .swatch__ref {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+
+  .dress__note {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--warm-gray);
+    font-size: 15px;
+    max-width: 56ch;
+    border-top: 1px solid rgba(33,25,19,0.18);
+    padding-top: 22px;
+  }
+
+  /* ---------- GIFTS (flowers + envelope) ---------- */
+  .gifts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .gift h3 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(30px, 3.2vw, 44px);
+    line-height: 1.05;
+    margin: 18px 0 20px;
+    color: var(--ink);
+  }
+  .gift p {
+    font-family: var(--display);
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 22px;
+    max-width: 42ch;
+  }
+  .gift .icon {
+    height: 56px;
+    margin-bottom: 10px;
+  }
+
+  /* ---------- RSVP ---------- */
+  .rsvp {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .rsvp__heading {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 16px 0 24px;
+  }
+  .rsvp__heading em { font-style: italic; color: var(--brass); font-weight: 400; }
+  .rsvp__lead {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 auto 56px;
+    max-width: 44ch;
+  }
+  form.rsvp__form {
+    display: grid;
+    gap: 28px;
+    text-align: left;
+  }
+  .field { display: flex; flex-direction: column; gap: 10px; }
+  .field label {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--display);
+    font-size: 19px;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(33,25,19,0.35);
+    padding: 6px 0 10px;
+    outline: none;
+    transition: border-color .3s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: var(--brass); }
+  .field--row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .submit {
+    margin-top: 18px;
+    display: inline-block;
+    align-self: start;
+    background: transparent;
+    border: 0;
+    padding: 14px 0 6px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    cursor: pointer;
+    position: relative;
+    width: max-content;
+  }
+  .submit::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+    transition: background-color .3s, transform .5s cubic-bezier(.22,1,.36,1);
+    transform-origin: left center;
+  }
+  .submit:hover::after { background: var(--brass); transform: scaleX(1.04); }
+  .deadline {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 24px;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 14vh 5vw 7vh;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+  }
+  .foot-monogram {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 42px;
+    color: var(--brass);
+    line-height: 1;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .foot-date {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+  .foot-rule {
+    margin: 40px auto 28px;
+    width: 1px;
+    height: 60px;
+    background: var(--ink);
+    opacity: 0.5;
+  }
+
+  /* ---------- reveal / motion ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 900ms cubic-bezier(.22,1,.36,1),
+                transform 900ms cubic-bezier(.22,1,.36,1);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .lineReveal { display: block; overflow: hidden; }
+  .lineReveal > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1100ms cubic-bezier(.22,1,.36,1);
+    transition-delay: var(--d, 0ms);
+    will-change: transform;
+  }
+  .lineReveal.in > span { transform: translateY(0); }
+
+  /* draw stroke on SVG paths */
+  .drawPath {
+    stroke-dasharray: var(--len, 1000);
+    stroke-dashoffset: var(--len, 1000);
+    transition: stroke-dashoffset var(--dur, 1400ms) cubic-bezier(.22,1,.36,1);
+    transition-delay: var(--d, 0ms);
+  }
+  .drawPath.in { stroke-dashoffset: 0; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px) {
+    .childhood { grid-template-columns: 1fr; gap: 60px; }
+    .childhood--reverse .photo-frame { order: 0; }
+    .where { grid-template-columns: 1fr; gap: 40px; }
+    .where .divider { display: none; }
+    .swatches { grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .swatch__ref { display: none; }
+    .swatch__name { font-size: 13px; }
+    .gifts { grid-template-columns: 1fr; gap: 60px; }
+    .field--row { grid-template-columns: 1fr; }
+    .hero__meta { gap: 32px; flex-wrap: wrap; }
+  }
+  @media (max-width: 540px) {
+    body { font-size: 17px; }
+    section { padding: 14vh 6vw; }
+    .swatches { gap: 10px; }
+    .topbar .mono.middle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────── TOPBAR ───────────────────── -->
+<div class="topbar" id="topbar">
+  <span class="mono">А · А</span>
+  <span class="mono middle">Приглашение</span>
+  <a href="#rsvp" class="mono link-underline">RSVP</a>
+</div>
+
+<main>
+
+  <!-- ───────────────────── 01 HERO ───────────────────── -->
+  <section class="hero">
+    <div class="hero__meta-top reveal" style="--d: 200ms">
+      <span class="caps caps--brass">Приглашение · Москва · MMXXVI</span>
+    </div>
+
+    <p class="hero__monogram reveal" style="--d: 400ms">A &amp; A</p>
+
+    <h1 class="hero__title">
+      <span class="lineReveal" style="--d:0ms"><span>Анна</span></span>
+      <span class="hero__amp lineReveal" style="--d:240ms"><span>&amp;</span></span>
+      <span class="lineReveal" style="--d:480ms"><span><em>Александр</em></span></span>
+    </h1>
+
+    <div class="hero__rule reveal" style="--d: 1200ms"></div>
+
+    <div class="hero__meta">
+      <div class="reveal" style="--d:1400ms">
+        <span class="caps caps--mute">Двенадцатого</span>
+        <span class="val">июля 2026</span>
+      </div>
+      <div class="reveal" style="--d:1550ms">
+        <span class="caps caps--mute">Особняк</span>
+        <span class="val">на Поварской</span>
+      </div>
+      <div class="reveal" style="--d:1700ms">
+        <span class="caps caps--mute">Сбор гостей</span>
+        <span class="val">в шестнадцать</span>
+      </div>
+    </div>
+
+    <div class="hero__scroll reveal" style="--d: 2200ms">
+      <span class="caps caps--mute">далее</span>
+      <span class="arrow"></span>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 02 EPIGRAPH ───────────────────── -->
+  <section class="epigraph">
+    <blockquote class="reveal">
+      «И всё, что было, всё, что будет,&nbsp;—<br>
+      лишь долгий разговор двух тишин<br>
+      о доме, о саде, о реке.»
+    </blockquote>
+    <cite class="reveal" style="--d:300ms">из писем Серебряного века</cite>
+  </section>
+
+  <!-- ───────────────────── 03 MANSION ───────────────────── -->
+  <section class="mansion">
+    <span class="section-num">№ 01 · Дом</span>
+
+    <div class="mansion__image-wrap reveal">
+      <!-- placeholder: archival façade illustration -->
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#D6CCB8"/>
+            <stop offset="100%" stop-color="#ECE5D8"/>
+          </linearGradient>
+          <pattern id="grain2" patternUnits="userSpaceOnUse" width="200" height="200">
+            <filter id="nx"><feTurbulence baseFrequency="0.8" numOctaves="2"/><feColorMatrix values="0 0 0 0 0.13  0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0.3 0"/></filter>
+            <rect width="200" height="200" filter="url(#nx)"/>
+          </pattern>
+        </defs>
+        <rect width="1600" height="900" fill="url(#sky)"/>
+        <!-- distant trees -->
+        <path d="M0,640 C160,610 260,635 380,615 C480,600 560,635 700,615 C850,600 980,625 1100,610 C1240,595 1380,620 1600,605 L1600,720 L0,720 Z" fill="#9A9A82" opacity="0.55"/>
+        <!-- mansion mass -->
+        <g transform="translate(360,300)">
+          <!-- main body -->
+          <rect x="0" y="120" width="880" height="280" fill="#C8B89C" stroke="#3C2E22" stroke-width="1.4"/>
+          <!-- central portico pediment -->
+          <polygon points="280,40 600,40 740,120 140,120" fill="#D9CCB2" stroke="#3C2E22" stroke-width="1.4"/>
+          <!-- columns -->
+          <g fill="none" stroke="#3C2E22" stroke-width="1.2">
+            <line x1="220" y1="120" x2="220" y2="400"/>
+            <line x1="300" y1="120" x2="300" y2="400"/>
+            <line x1="380" y1="120" x2="380" y2="400"/>
+            <line x1="500" y1="120" x2="500" y2="400"/>
+            <line x1="580" y1="120" x2="580" y2="400"/>
+            <line x1="660" y1="120" x2="660" y2="400"/>
+          </g>
+          <!-- windows -->
+          <g fill="#7E6E54" stroke="#3C2E22" stroke-width="1">
+            <rect x="40"  y="170" width="40" height="100"/>
+            <rect x="100" y="170" width="40" height="100"/>
+            <rect x="740" y="170" width="40" height="100"/>
+            <rect x="800" y="170" width="40" height="100"/>
+          </g>
+          <!-- door -->
+          <rect x="420" y="230" width="40" height="170" fill="#5C4A36" stroke="#3C2E22"/>
+          <!-- balustrade -->
+          <g stroke="#3C2E22" stroke-width="1" fill="none">
+            <line x1="-20" y1="400" x2="900" y2="400"/>
+            <line x1="-20" y1="430" x2="900" y2="430"/>
+          </g>
+        </g>
+        <!-- foreground ground -->
+        <rect x="0" y="720" width="1600" height="180" fill="#B9AB8E"/>
+        <!-- subtle grain -->
+        <rect width="1600" height="900" fill="url(#grain2)" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="mansion__caption">
+      <div class="reveal">
+        <span class="caps caps--brass">Место</span>
+        <div class="title">Особняк на&nbsp;Поварской, 1903</div>
+      </div>
+      <div class="reveal" style="--d:200ms; max-width: 380px;">
+        <span class="caps caps--mute" style="display:block; margin-bottom:8px;">Адрес</span>
+        <span style="font-family:var(--display); font-style:italic;">
+          Москва, ул. Поварская, дом …, кабинет особняка
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 04 ЕЁ ДЕТСТВО ───────────────────── -->
+  <section>
+    <span class="section-num">№ 02 · Она</span>
+
+    <div class="childhood">
+
+      <!-- photo block with drawn overlay -->
+      <div class="photo-frame reveal">
+        <div class="photo">
+          <!-- placeholder portrait: child silhouette in oval -->
+          <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="vign1" cx="50%" cy="42%" r="65%">
+                <stop offset="55%" stop-color="#CFC4AE"/>
+                <stop offset="100%" stop-color="#7C705C"/>
+              </radialGradient>
+              <linearGradient id="dress1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#E9DFC9"/>
+                <stop offset="100%" stop-color="#B7A98D"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="500" fill="url(#vign1)"/>
+            <!-- soft floor shadow -->
+            <ellipse cx="200" cy="450" rx="130" ry="14" fill="#5C5043" opacity="0.35"/>
+            <!-- silhouette of girl -->
+            <g>
+              <!-- skirt -->
+              <path d="M120,440 Q140,300 200,260 Q260,300 280,440 Z" fill="url(#dress1)"/>
+              <!-- bodice -->
+              <path d="M170,260 Q200,250 230,260 L228,210 Q200,200 172,210 Z" fill="#9B8B6E"/>
+              <!-- arms -->
+              <path d="M170,220 Q150,260 158,300" stroke="#9B8B6E" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path d="M230,220 Q250,260 244,300" stroke="#9B8B6E" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <!-- neck -->
+              <rect x="192" y="194" width="16" height="20" fill="#D8C8A8"/>
+              <!-- head -->
+              <ellipse cx="200" cy="178" rx="28" ry="32" fill="#D8C8A8"/>
+              <!-- hair -->
+              <path d="M172,170 Q176,140 200,138 Q226,140 230,172 Q230,156 218,148 Q200,140 184,150 Q172,156 172,170Z" fill="#3D2E20"/>
+              <!-- bow -->
+              <path d="M180,148 q-8,-6 -14,2 q6,8 14,4 z M222,150 q8,-6 14,2 q-6,8 -14,4 z" fill="#7C5232"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- hand-drawn overlay: outline + ballet pointe motif -->
+        <svg class="overlay" viewBox="0 0 400 500" preserveAspectRatio="none">
+          <g fill="none" stroke="#A9874D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- silhouette outline -->
+            <path class="drawPath" data-dur="1800" data-delay="200"
+              d="M180,148
+                 Q172,156 172,172
+                 Q172,190 188,206
+                 L188,214
+                 Q170,222 168,238
+                 Q150,270 156,304
+                 Q138,320 130,360
+                 Q120,402 118,442
+                 L284,444
+                 Q282,406 270,360
+                 Q262,322 244,304
+                 Q250,272 232,238
+                 Q230,222 212,214
+                 L212,206
+                 Q228,192 228,172
+                 Q228,156 222,148
+                 Q210,140 200,140
+                 Q190,140 180,148 Z" />
+            <!-- bow detail -->
+            <path class="drawPath" data-dur="900" data-delay="1400"
+              d="M180,148 q-10,-8 -18,2 q8,10 18,4
+                 M222,148 q10,-8 18,2 q-8,10 -18,4" />
+            <!-- atrribute: pointe shoe near her feet, drawn last -->
+            <path class="drawPath" data-dur="1400" data-delay="2100"
+              d="M306,438
+                 q22,-2 30,6
+                 q4,4 -2,8
+                 q-12,6 -28,4
+                 q-14,-2 -14,-8
+                 q0,-6 14,-10 z" />
+            <!-- ribbon -->
+            <path class="drawPath" data-dur="1100" data-delay="2900"
+              d="M324,420
+                 q-4,-16 4,-30
+                 M336,422
+                 q4,-18 12,-26" />
+          </g>
+        </svg>
+
+        <span class="label">Анна · около 1996 · Подмосковье</span>
+      </div>
+
+      <div class="child-text">
+        <h3>Та, что умела&nbsp;<em>танцевать</em><br>раньше, чем&nbsp;ходить.</h3>
+        <p>
+          Её первой профессией был&nbsp;балет, потом&nbsp;— акварель,
+          потом&nbsp;— долгие письма. Она&nbsp;собирала пуговицы,
+          засушенные васильки и&nbsp;истории, которые рассказывали бабушки.
+        </p>
+        <p>
+          На&nbsp;этом снимке ей&nbsp;четыре, и&nbsp;она впервые
+          увидела море.
+        </p>
+        <span class="caps caps--brass role">Невеста</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 05 ЕГО ДЕТСТВО ───────────────────── -->
+  <section>
+    <span class="section-num right">№ 03 · Он</span>
+
+    <div class="childhood childhood--reverse">
+
+      <div class="photo-frame reveal">
+        <div class="photo">
+          <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="vign2" cx="50%" cy="42%" r="65%">
+                <stop offset="55%" stop-color="#C9BFA8"/>
+                <stop offset="100%" stop-color="#736755"/>
+              </radialGradient>
+              <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5C4B36"/>
+                <stop offset="100%" stop-color="#3A2E20"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="500" fill="url(#vign2)"/>
+            <ellipse cx="200" cy="450" rx="130" ry="14" fill="#5C5043" opacity="0.35"/>
+            <g>
+              <!-- legs -->
+              <rect x="178" y="350" width="20" height="100" fill="#5C4B36"/>
+              <rect x="202" y="350" width="20" height="100" fill="#5C4B36"/>
+              <!-- coat -->
+              <path d="M148,360 Q140,260 200,228 Q260,260 252,360 Z" fill="url(#coat)"/>
+              <!-- collar -->
+              <path d="M178,238 L222,238 L228,220 L172,220 Z" fill="#D8C8A8"/>
+              <!-- arms -->
+              <path d="M152,250 Q132,300 138,348" stroke="#5C4B36" stroke-width="20" fill="none" stroke-linecap="round"/>
+              <path d="M248,250 Q268,300 262,348" stroke="#5C4B36" stroke-width="20" fill="none" stroke-linecap="round"/>
+              <!-- neck -->
+              <rect x="192" y="200" width="16" height="22" fill="#D8C8A8"/>
+              <!-- head -->
+              <ellipse cx="200" cy="180" rx="28" ry="32" fill="#D8C8A8"/>
+              <!-- hair -->
+              <path d="M172,176 Q170,142 200,138 Q230,142 230,176 Q230,158 218,150 Q200,144 184,152 Q174,160 172,176Z" fill="#2E2114"/>
+            </g>
+          </svg>
+        </div>
+
+        <svg class="overlay" viewBox="0 0 400 500" preserveAspectRatio="none">
+          <g fill="none" stroke="#A9874D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- silhouette outline -->
+            <path class="drawPath" data-dur="1800" data-delay="200"
+              d="M178,156
+                 Q172,170 174,184
+                 Q176,200 192,210
+                 L192,222
+                 Q174,228 162,250
+                 Q146,290 148,346
+                 L146,452
+                 L178,452
+                 L178,358
+                 L222,358
+                 L222,452
+                 L254,452
+                 L252,346
+                 Q254,290 238,250
+                 Q226,228 208,222
+                 L208,210
+                 Q224,200 226,184
+                 Q228,170 222,156
+                 Q210,144 200,144
+                 Q190,144 178,156 Z" />
+            <!-- collar -->
+            <path class="drawPath" data-dur="1000" data-delay="1600"
+              d="M178,230 L222,230 L228,214 L172,214 Z" />
+            <!-- attribute: theatrical curtain on the side -->
+            <path class="drawPath" data-dur="1400" data-delay="2200"
+              d="M348,30
+                 L348,460
+                 M348,30
+                 Q336,80 348,130
+                 Q360,180 348,230
+                 Q336,280 348,330
+                 Q360,380 348,430
+                 M348,30
+                 q-22,-2 -30,8
+                 q-12,12 -10,28" />
+            <!-- tassel -->
+            <path class="drawPath" data-dur="700" data-delay="3300"
+              d="M318,66 l-6,18 m6,-18 l4,18 m-4,-18 l0,18" />
+          </g>
+        </svg>
+
+        <span class="label">Александр · около 1993 · Санкт-Петербург</span>
+      </div>
+
+      <div class="child-text">
+        <h3>Тот, кто&nbsp;всё детство<br>искал свой&nbsp;<em>занавес</em>.</h3>
+        <p>
+          В&nbsp;шесть лет он&nbsp;поставил во&nbsp;дворе спектакль
+          о&nbsp;принце, потерявшем перчатку. В&nbsp;девять&nbsp;— записывал
+          в&nbsp;тетрадь чужие реплики.
+        </p>
+        <p>
+          На&nbsp;этом снимке ему&nbsp;семь, и&nbsp;он&nbsp;только что
+          узнал, что&nbsp;в&nbsp;театре бывает антракт.
+        </p>
+        <span class="caps caps--brass role">Жених</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 06 WHEN & WHERE ───────────────────── -->
+  <section>
+    <span class="section-num">№ 04 · Вечер</span>
+
+    <div class="where">
+      <div class="reveal">
+        <span class="caps caps--brass">Когда</span>
+        <p class="big">
+          Двенадцатого июля<br>
+          <em>две тысячи двадцать шестого</em>
+        </p>
+        <p class="sub">воскресенье, в&nbsp;шестнадцать часов</p>
+        <p class="meta">
+          16:00 — сбор гостей<br>
+          17:30 — церемония<br>
+          19:00 — ужин и&nbsp;танцы
+        </p>
+      </div>
+
+      <div class="divider reveal" style="--d: 200ms"></div>
+
+      <div class="reveal" style="--d: 300ms">
+        <span class="caps caps--brass">Где</span>
+        <p class="big">
+          Особняк<br>
+          <em>на&nbsp;Поварской</em>
+        </p>
+        <p class="sub">Москва, начало XX&nbsp;века</p>
+        <p class="meta">
+          Точный адрес и&nbsp;карта<br>
+          будут отправлены позже<br>
+          вместе с&nbsp;подтверждением.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 07 DRESS CODE ───────────────────── -->
+  <section>
+    <span class="section-num">№ 05 · Платье</span>
+
+    <div class="dress">
+      <div class="dress__head reveal">
+        <span class="caps caps--brass">Дресс-код</span>
+        <h2>Тёплая палитра<br><em>русских сезонов</em>.</h2>
+        <p>
+          Не&nbsp;форма, а&nbsp;настроение. Возьмите один из&nbsp;этих
+          оттенков как ориентир для&nbsp;вечернего силуэта&nbsp;— и&nbsp;всё
+          сложится. Никакого чистого чёрного, никакого блеска.
+        </p>
+      </div>
+
+      <div class="swatches">
+        <div class="swatch reveal" style="--d: 0ms">
+          <div class="swatch__dot" style="background: radial-gradient(circle at 35% 30%, #3F1A19, #2A0D0D);"></div>
+          <div class="swatch__name">Бордо</div>
+          <div class="swatch__ref">В.&nbsp;Серов<br>«Юсупова», 1902</div>
+        </div>
+        <div class="swatch reveal" style="--d: 120ms">
+          <div class="swatch__dot" style="background: radial-gradient(circle at 35% 30%, #B3793A, #8A572A);"></div>
+          <div class="swatch__name">Охра</div>
+          <div class="swatch__ref">Л.&nbsp;Бакст<br>«Шахерезада», 1910</div>
+        </div>
+        <div class="swatch reveal" style="--d: 240ms">
+          <div class="swatch__dot" style="background: radial-gradient(circle at 35% 30%, #C7A35A, #9A7B3A);"></div>
+          <div class="swatch__name">Старое золото</div>
+          <div class="swatch__ref">А.&nbsp;Бенуа<br>«Версаль», 1906</div>
+        </div>
+        <div class="swatch reveal" style="--d: 360ms">
+          <div class="swatch__dot" style="background: radial-gradient(circle at 35% 30%, #6C6F4A, #4B4E32);"></div>
+          <div class="swatch__name">Олива</div>
+          <div class="swatch__ref">К.&nbsp;Сомов<br>«Дама в&nbsp;голубом»</div>
+        </div>
+        <div class="swatch reveal" style="--d: 480ms">
+          <div class="swatch__dot" style="background: radial-gradient(circle at 35% 30%, #2E3340, #14202E);"></div>
+          <div class="swatch__name">Тёмная синь</div>
+          <div class="swatch__ref">Л.&nbsp;Бакст<br>эскиз костюма</div>
+        </div>
+      </div>
+
+      <p class="dress__note">
+        Цвета даны как&nbsp;камертон: чувствуйте, а&nbsp;не&nbsp;подбирайте буквально.
+        Бархат, шёлк, кашемир&nbsp;— приветствуются. Удобная обувь&nbsp;—
+        в&nbsp;особняке высокие потолки и&nbsp;длинные коридоры.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 08 GIFTS ───────────────────── -->
+  <section>
+    <span class="section-num">№ 06 · Жесты</span>
+
+    <div class="gifts">
+
+      <div class="gift reveal">
+        <svg class="icon" viewBox="0 0 80 80" fill="none" stroke="#A9874D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- single-line bouquet motif -->
+          <path d="M40,68 L40,38" />
+          <path d="M40,38 Q28,32 24,22 Q22,16 28,16 Q36,18 40,28" />
+          <path d="M40,38 Q52,32 56,22 Q58,16 52,16 Q44,18 40,28" />
+          <path d="M40,28 Q34,22 32,14 Q38,12 42,18" />
+          <path d="M40,28 Q46,22 48,14 Q42,12 38,18" />
+          <circle cx="40" cy="30" r="2" />
+          <path d="M30,68 L50,68" />
+        </svg>
+        <span class="caps caps--brass">Вместо букетов</span>
+        <h3>Цветочная подписка<br>для&nbsp;вашего дома.</h3>
+        <p>
+          Если&nbsp;хочется сделать приятное, мы&nbsp;будем рады,
+          если&nbsp;вы&nbsp;оформите себе цветочную подписку&nbsp;—
+          пусть&nbsp;дом наполнится тем же, чем&nbsp;наполнится особняк.
+        </p>
+        <a href="#" class="link-underline" style="font-family: var(--display); font-style: italic; font-size: 17px;">
+          посмотреть варианты&nbsp;→
+        </a>
+      </div>
+
+      <div class="gift reveal" style="--d:200ms">
+        <svg class="icon" viewBox="0 0 80 80" fill="none" stroke="#A9874D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- envelope -->
+          <rect x="14" y="24" width="52" height="36" rx="1"/>
+          <path d="M14,28 L40,46 L66,28"/>
+          <!-- wax seal -->
+          <circle cx="56" cy="56" r="5" fill="#A9874D" stroke="none" opacity="0.85"/>
+        </svg>
+        <span class="caps caps--brass">Подарок</span>
+        <h3>Конверт&nbsp;—<br>если&nbsp;посчитаете нужным.</h3>
+        <p>
+          Самым&nbsp;тёплым подарком будет ваше присутствие.
+          Если же&nbsp;вы&nbsp;всё-таки решите подарить что-то материальное,
+          мы&nbsp;будем благодарны за&nbsp;конверт&nbsp;— без сумм и&nbsp;условностей.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───────────────────── 09 RSVP ───────────────────── -->
+  <section id="rsvp">
+    <span class="section-num">№ 07 · Ответ</span>
+
+    <div class="rsvp">
+      <span class="caps caps--brass deadline reveal">просим ответить до&nbsp;1 июня</span>
+      <h2 class="rsvp__heading reveal" style="--d: 100ms">
+        Будем&nbsp;<em>счастливы</em><br>видеть вас.
+      </h2>
+      <p class="rsvp__lead reveal" style="--d: 240ms">
+        Несколько строк, не&nbsp;больше. Этого достаточно,
+        чтобы мы&nbsp;точно знали&nbsp;— вы&nbsp;будете.
+      </p>
+
+      <form class="rsvp__form reveal" style="--d: 360ms" onsubmit="event.preventDefault(); this.querySelector('.submit').textContent='Спасибо · до встречи'; setTimeout(()=>{ this.querySelector('.submit').style.color='var(--brass)'; }, 80);">
+        <div class="field">
+          <label for="name">имя и&nbsp;фамилия</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+
+        <div class="field--row">
+          <div class="field">
+            <label for="att">буду&nbsp;ли&nbsp;я</label>
+            <select id="att" name="attending" required>
+              <option value="">—</option>
+              <option>да, обязательно</option>
+              <option>да, со&nbsp;спутником / спутницей</option>
+              <option>к&nbsp;сожалению, не&nbsp;смогу</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="diet">особые пожелания по&nbsp;еде</label>
+            <input id="diet" name="diet" type="text" placeholder="напр.: без рыбы" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">если&nbsp;есть что добавить</label>
+          <textarea id="note" name="note" rows="2"></textarea>
+        </div>
+
+        <button class="submit" type="submit">отправить ответ&nbsp;→</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ───────────────────── 10 FOOT ───────────────────── -->
+  <footer>
+    <div class="foot-monogram reveal">A &amp; A</div>
+    <span class="caps caps--mute reveal" style="--d: 200ms">XII · VII · MMXXVI</span>
+    <div class="foot-rule reveal" style="--d: 400ms"></div>
+    <span class="caps caps--mute reveal" style="--d: 600ms">с любовью · Москва</span>
+  </footer>
+
+</main>
+
+<script>
+  // --- 1. measure SVG path lengths and set --len var
+  document.querySelectorAll('.drawPath').forEach(p => {
+    try {
+      const len = Math.ceil(p.getTotalLength()) + 4;
+      p.style.setProperty('--len', len);
+      const dur = p.dataset.dur ? `${p.dataset.dur}ms` : '1400ms';
+      const del = p.dataset.delay ? `${p.dataset.delay}ms` : '0ms';
+      p.style.setProperty('--dur', dur);
+      p.style.setProperty('--d', del);
+    } catch(e) { /* svg not ready */ }
+  });
+
+  // --- 2. reveal on intersection
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal, .lineReveal').forEach(el => io.observe(el));
+
+  // --- 3. drawPath observer (different threshold, separate)
+  const drawIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        drawIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.drawPath').forEach(el => drawIO.observe(el));
+
+  // --- 4. hero lineReveal triggered on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .lineReveal, .hero .reveal').forEach(el => {
+      // ensure they reveal even if already in viewport
+      requestAnimationFrame(() => el.classList.add('in'));
+    });
+  });
+
+  // --- 5. fade topbar near hero, show after
+  const topbar = document.getElementById('topbar');
+  function onScroll() {
+    const y = window.scrollY;
+    const vh = window.innerHeight;
+    if (y < vh * 0.85) {
+      topbar.style.opacity = Math.max(0, (y / (vh * 0.85)) * 0.9);
+    } else {
+      topbar.style.opacity = 0.9;
+    }
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#F2EDE4" />
+<title>Антон и Валерия · XI · IX · MMXXVI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ivory:    #F2EDE4;
+    --paper:    #ECE5D8;
+    --espresso: #211913;
+    --ink:      #2A2018;
+    --olive:    #6E725C;
+    --sage:     #8C8E75;
+    --brass:    #A9874D;
+    --warm-gray:#8C8478;
+    --pencil-1: #A9874D;
+    --pencil-2: #6E725C;
+    --pencil-3: #3F1A19;
+
+    /* dress-code palette (pastel, по референсу) */
+    --p-cream:  #F3E6CC;
+    --p-blue:   #A8C4D4;
+    --p-sage:   #B9CDB8;
+    --p-pearl:  #B3B5B0;
+
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --ui: 'Inter', -apple-system, system-ui, sans-serif;
+
+    --col-w: min(1180px, 92vw);
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--display);
+    font-weight: 400;
+    line-height: 1.55;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+    overflow-x: hidden;
+  }
+
+  /* paper + grain */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(169,135,77,0.05), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(110,114,92,0.05), transparent 55%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.13  0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  main { position: relative; z-index: 3; }
+
+  /* primitives */
+  .container { width: var(--col-w); margin: 0 auto; }
+
+  .caps {
+    font-family: var(--ui);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .caps--mute  { color: var(--warm-gray); }
+  .caps--brass { color: var(--brass); }
+
+  .rule {
+    display: block;
+    width: 56px; height: 1px;
+    background: var(--ink);
+    border: 0; margin: 0;
+  }
+  .rule--center { margin-left: auto; margin-right: auto; }
+  .rule--brass  { background: var(--brass); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+    transition: background-color .3s;
+  }
+  .link-underline:hover::after { background: var(--brass); }
+
+  /* topbar */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 20px 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s var(--ease);
+  }
+  .topbar.show { opacity: 1; }
+  .topbar > * { pointer-events: auto; }
+  .topbar .mono {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--brass);
+    letter-spacing: 0.02em;
+  }
+  .topbar .label {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 14vh 5vw 8vh;
+    position: relative;
+    text-align: center;
+  }
+  .hero__kicker {
+    margin-bottom: 36px;
+  }
+  .hero__title {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(54px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .hero__title em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .hero__amp {
+    display: block;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--brass);
+    font-size: 0.55em;
+    line-height: 1;
+    margin: 0.05em 0;
+  }
+  .hero__rule {
+    width: 1px; height: 64px;
+    background: var(--ink);
+    margin: 48px auto 28px;
+  }
+  .hero__meta {
+    display: flex;
+    gap: 56px;
+    justify-content: center;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .hero__meta > div { text-align: center; min-width: 110px; }
+  .hero__meta .caps { display: block; margin-bottom: 10px; }
+  .hero__meta .val {
+    font-family: var(--display);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .hero__scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: floatY 3.4s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, 6px); }
+  }
+  .hero__scroll .arrow {
+    width: 1px; height: 36px; background: var(--ink);
+    position: relative;
+  }
+  .hero__scroll .arrow::after{
+    content:''; position:absolute; left:50%; bottom:0;
+    width:6px; height:6px;
+    border-right:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    transform: translate(-50%, 4px) rotate(45deg);
+  }
+
+  /* generic section */
+  section {
+    padding: 18vh 5vw;
+    position: relative;
+  }
+  .section-num {
+    position: absolute;
+    top: 8vh;
+    left: 5vw;
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .section-num.right { left: auto; right: 5vw; text-align: right; }
+
+  .section-heading {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 48px;
+    color: var(--ink);
+  }
+  .section-heading em {
+    font-style: italic;
+    color: var(--brass);
+  }
+  .lead {
+    font-family: var(--display);
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 640px;
+  }
+
+  /* couple-photo (hero supporting) */
+  .couple {
+    width: var(--col-w);
+    max-width: 1180px;
+    margin: 0 auto 0;
+    aspect-ratio: 3 / 2;
+    background: var(--paper);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 70px -50px rgba(33,25,19,0.5);
+  }
+  .couple img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85) contrast(0.96);
+  }
+  .couple__caption {
+    width: var(--col-w);
+    max-width: 1180px;
+    margin: 22px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+  }
+
+  /* WHERE / WHEN */
+  .where {
+    text-align: left;
+  }
+  .where__grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 24px;
+    max-width: 980px;
+  }
+  .where__divider {
+    width: 1px;
+    background: var(--ink);
+    align-self: stretch;
+    min-height: 200px;
+    opacity: 0.6;
+  }
+  .where__col h3 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 42px);
+    margin: 16px 0 18px;
+    color: var(--ink);
+  }
+  .where__col p {
+    margin: 0 0 10px;
+    max-width: 380px;
+  }
+  .where__time {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--brass);
+    font-size: 22px;
+    letter-spacing: 0.01em;
+  }
+
+  /* CHILDHOOD (Она / Он) */
+  .child {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1.1fr);
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .child.reverse { grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 1fr); }
+  .child.reverse .child__photo { order: 2; }
+  .child.reverse .child__text  { order: 1; }
+
+  .child__photo {
+    position: relative;
+    aspect-ratio: var(--ar, 3 / 4.5);
+    max-width: var(--mw, 100%);
+    background: var(--paper);
+    overflow: visible;
+    margin: 0 auto;
+  }
+  .child__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: saturate(0.82) contrast(0.96) sepia(0.04);
+  }
+  .child__photo .pencil-overlay {
+    position: absolute;
+    inset: -8% -12% -10% -12%;
+    width: 124%;
+    height: 118%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .child__caption {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .child__text h2 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(48px, 6vw, 84px);
+    line-height: 1;
+    margin: 0 0 24px;
+    color: var(--ink);
+  }
+  .child__text h2 em {
+    font-style: italic;
+    color: var(--brass);
+  }
+  .child__text p {
+    margin: 0 0 18px;
+    max-width: 440px;
+  }
+
+  /* pencil paths */
+  .drawPath {
+    stroke-dasharray: var(--len, 1000);
+    stroke-dashoffset: var(--len, 1000);
+    transition: stroke-dashoffset var(--dur, 1600ms) var(--ease);
+    transition-delay: var(--d, 0ms);
+  }
+  .drawPath.in { stroke-dashoffset: 0; }
+
+  /* DRESS */
+  .dress__head {
+    max-width: 720px;
+    margin-bottom: 56px;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 56px;
+    max-width: 980px;
+  }
+  .swatch {
+    text-align: center;
+  }
+  .swatch__circle {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    box-shadow:
+      inset 0 0 30px rgba(0,0,0,0.25),
+      0 6px 30px -20px rgba(0,0,0,0.35);
+  }
+  .swatch__name {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .swatch__cite {
+    font-family: var(--ui);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+  .dress__after {
+    margin-top: 64px;
+    max-width: 720px;
+    font-style: italic;
+    color: var(--warm-gray);
+  }
+  .dress__pinterest {
+    margin-top: 28px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* GIFTS */
+  .gifts__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1040px;
+    margin-top: 32px;
+  }
+  .gift {
+    padding-top: 24px;
+  }
+  .gift__icon {
+    height: 64px;
+    margin-bottom: 28px;
+    color: var(--brass);
+  }
+  .gift__kicker {
+    margin-bottom: 14px;
+  }
+  .gift h3 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 40px);
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .gift p { margin: 0; max-width: 380px; }
+
+  /* FOOTER */
+  footer {
+    padding: 18vh 5vw 12vh;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+  }
+  .foot-mono {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(80px, 12vw, 168px);
+    line-height: 1;
+    color: var(--brass);
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  .foot-rule {
+    width: 1px;
+    height: 60px;
+    background: var(--ink);
+    margin: 36px auto;
+  }
+
+  /* reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .lineReveal { display: block; overflow: hidden; }
+  .lineReveal > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1100ms var(--ease);
+    transition-delay: var(--d, 0ms);
+  }
+  .lineReveal.in > span { transform: translateY(0); }
+
+  /* responsive */
+  @media (max-width: 860px) {
+    .where__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .where__divider { display: none; }
+    .child {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .child.reverse { grid-template-columns: 1fr; }
+    .child.reverse .child__photo { order: 1; }
+    .child.reverse .child__text  { order: 2; }
+    .swatches {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .swatch__name { font-size: 14px; }
+    .swatch__cite { display: none; }
+    .gifts__grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+    .hero__meta { gap: 28px; }
+    section { padding: 14vh 5vw; }
+  }
+
+  @media (max-width: 480px) {
+    .swatches { grid-template-columns: repeat(2, 1fr); gap: 28px 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .lineReveal > span, .drawPath { transition: none; }
+    .reveal { opacity: 1; transform: none; }
+    .lineReveal > span { transform: none; }
+    .drawPath { stroke-dashoffset: 0; }
+    .hero__scroll { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- shared SVG defs: pencil filter -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="pencilFilter" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="t1"/>
+      <feDisplacementMap in="SourceGraphic" in2="t1" scale="2.4"/>
+    </filter>
+    <filter id="pencilFilter2" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="t2"/>
+      <feDisplacementMap in="SourceGraphic" in2="t2" scale="3"/>
+    </filter>
+  </defs>
+</svg>
+
+<header class="topbar" id="topbar">
+  <span class="mono">А · В</span>
+  <span class="label">приглашение</span>
+  <span class="label">XI · IX · MMXXVI</span>
+</header>
+
+<main>
+
+  <!-- ============ BLOCK 1 · HERO ============ -->
+  <section class="hero" id="hero">
+    <span class="caps caps--brass hero__kicker reveal" style="--d: 100ms">приглашение</span>
+
+    <h1 class="hero__title">
+      <span class="lineReveal" style="--d:0ms"><span>Антон</span></span>
+      <span class="hero__amp lineReveal" style="--d:240ms"><span>&amp;</span></span>
+      <span class="lineReveal" style="--d:480ms"><span><em>Валерия</em></span></span>
+    </h1>
+
+    <div class="hero__rule reveal" style="--d: 1100ms"></div>
+
+    <div class="hero__meta">
+      <div class="reveal" style="--d:1300ms">
+        <span class="caps caps--mute">день</span>
+        <span class="val">одиннадцатое сентября</span>
+      </div>
+      <div class="reveal" style="--d:1450ms">
+        <span class="caps caps--mute">место</span>
+        <span class="val">особняк Путилова · Крестовский</span>
+      </div>
+      <div class="reveal" style="--d:1600ms">
+        <span class="caps caps--mute">час</span>
+        <span class="val">пятнадцать ноль ноль</span>
+      </div>
+    </div>
+
+    <a href="#where" class="hero__scroll" aria-label="смотреть дальше">
+      <span class="caps caps--mute">далее</span>
+      <span class="arrow"></span>
+    </a>
+  </section>
+
+  <!-- supporting couple photo + lead -->
+  <section style="padding-top: 0; padding-bottom: 14vh;">
+    <div class="couple reveal">
+      <img src="assets/photos/couple.jpeg" alt="Антон и Валерия" loading="lazy" />
+    </div>
+    <div class="couple__caption reveal" style="--d: 200ms">
+      <span class="caps caps--mute">Антон · Валерия · MMXXVI</span>
+      <span class="caps caps--mute">приглашение</span>
+    </div>
+
+    <div class="container" style="margin-top: 14vh; max-width: 720px;">
+      <p class="lead reveal">
+        Приглашаем разделить с нами этот вечер — без церемонной торжественности, в кругу самых близких.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ BLOCK 2 · WHEN / WHERE ============ -->
+  <section class="where container" id="where">
+    <span class="section-num">№ 01 · Вечер</span>
+
+    <h2 class="section-heading reveal">
+      Когда <em>и&nbsp;где</em>
+    </h2>
+
+    <div class="where__grid">
+      <div class="where__col reveal">
+        <span class="caps caps--mute">день и&nbsp;час</span>
+        <h3>Одиннадцатого сентября,<br/>к&nbsp;трём часам пополудни</h3>
+        <p>Будем ждать вас заранее — встреча гостей с&nbsp;<span class="where__time">14:30</span>, церемония в&nbsp;15:00.</p>
+      </div>
+
+      <div class="where__divider reveal" style="--d: 150ms"></div>
+
+      <div class="where__col reveal" style="--d: 300ms">
+        <span class="caps caps--mute">место</span>
+        <h3>Особняк&nbsp;Путилова,<br/>Крестовский&nbsp;остров</h3>
+        <p>Санкт-Петербург, исторический особняк начала XX&nbsp;века. Точный адрес и&nbsp;схему проезда отправим ближе к&nbsp;дате.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOCK 3 · ОНА ============ -->
+  <section class="child-section">
+    <span class="section-num">№ 02 · Она</span>
+
+    <div class="child">
+      <div class="child__photo reveal" style="--ar: 412/1192; --mw: 340px;">
+        <img src="assets/photos/valeria-child.png" alt="Валерия в детстве" loading="lazy" />
+        <!-- pencil overlay: рамка + букет-акцент в нижнем углу -->
+        <svg class="pencil-overlay" viewBox="0 0 124 144" preserveAspectRatio="none" aria-hidden="true">
+          <g filter="url(#pencilFilter)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- pencil рамка по периметру фото (с учётом negative inset) -->
+            <path class="drawPath" data-dur="2200" data-delay="200"
+                  stroke="var(--pencil-1)" stroke-width="0.5"
+                  d="M 12,9 L 112,9 L 112,135 L 12,135 Z" />
+            <!-- второй pencil слой, оливковый -->
+            <path class="drawPath" data-dur="1800" data-delay="700"
+                  stroke="var(--pencil-2)" stroke-width="0.35"
+                  d="M 13.5,10.5 L 110.5,10.5 M 110.5,10.5 L 110.5,133.5 M 110.5,133.5 L 13.5,133.5 M 13.5,133.5 L 13.5,10.5" />
+            <!-- дорисованный букет в нижнем-правом углу, бордо -->
+            <path class="drawPath" data-dur="1400" data-delay="2200"
+                  stroke="var(--pencil-3)" stroke-width="0.55"
+                  d="M 117,128
+                     C 119,124 122,123 122,127
+                     C 122,131 119,132 117,131
+                     M 120,124
+                     C 121,121 120,118 117,119
+                     C 116,122 117,124 120,124
+                     M 116,126
+                     C 113,125 110,127 112,130
+                     C 115,131 117,129 116,126
+                     M 118,131 L 117,141
+                     M 120,128 L 121,140
+                     M 115,129 L 113,140
+                     M 113,140 L 121,140" />
+            <!-- завитушка-веточка, олива -->
+            <path class="drawPath" data-dur="1000" data-delay="3200"
+                  stroke="var(--pencil-2)" stroke-width="0.35"
+                  d="M 5,135 C 7,131 9,129 12,128
+                     M 9,134 L 11,131
+                     M 7,132 L 9,130" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="child__text">
+        <h2 class="reveal"><em>Валерия</em></h2>
+        <p class="caps caps--mute reveal" style="--d:120ms">Валерия · детство · с&nbsp;букетом</p>
+        <p class="reveal" style="--d: 220ms">Та, что с&nbsp;детства собирала букеты во&nbsp;дворе и&nbsp;уверенно знала, какой цветок где растёт.</p>
+        <p class="reveal" style="--d: 360ms">К сентябрю она пройдёт длинный путь от&nbsp;этой курточки до&nbsp;свадебного платья — и&nbsp;нам хочется, чтобы вы&nbsp;были рядом в&nbsp;этот день.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOCK 4 · ОН ============ -->
+  <section class="child-section">
+    <span class="section-num right">№ 03 · Он</span>
+
+    <div class="child reverse">
+      <div class="child__photo reveal" style="--ar: 232/479; --mw: 340px;">
+        <img src="assets/photos/anton-child.png" alt="Антон в детстве" loading="lazy" />
+        <!-- pencil overlay: рамка + корона из игл сверху + бабочка снизу -->
+        <svg class="pencil-overlay" viewBox="0 0 124 118" preserveAspectRatio="none" aria-hidden="true">
+          <g filter="url(#pencilFilter2)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- pencil рамка -->
+            <path class="drawPath" data-dur="2200" data-delay="200"
+                  stroke="var(--pencil-1)" stroke-width="0.55"
+                  d="M 12,9 L 112,9 L 112,109 L 12,109 Z" />
+            <!-- второй pencil слой, оливковый -->
+            <path class="drawPath" data-dur="1800" data-delay="700"
+                  stroke="var(--pencil-2)" stroke-width="0.4"
+                  d="M 13.5,10.5 L 110.5,10.5 M 110.5,10.5 L 110.5,107.5 M 110.5,107.5 L 13.5,107.5 M 13.5,107.5 L 13.5,10.5" />
+            <!-- корона из игл над фото (атрибут карнавала), бордо -->
+            <path class="drawPath" data-dur="1500" data-delay="2200"
+                  stroke="var(--pencil-3)" stroke-width="0.6"
+                  d="M 42,9 L 40,2
+                     M 50,9 L 49,1
+                     M 58,9 L 58,0
+                     M 66,9 L 66,1
+                     M 74,9 L 75,1
+                     M 82,9 L 84,2" />
+            <!-- бабочка в нижнем-левом углу, олива -->
+            <path class="drawPath" data-dur="1000" data-delay="3400"
+                  stroke="var(--pencil-2)" stroke-width="0.45"
+                  d="M 4,114
+                     L 9,111 L 13,111 L 18,114
+                     L 13,117 L 9,117 Z
+                     M 11,113 L 11,115" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="child__text">
+        <h2 class="reveal"><em>Антон</em></h2>
+        <p class="caps caps--mute reveal" style="--d:120ms">Антон · детство · карнавал</p>
+        <p class="reveal" style="--d: 220ms">Тот, что в&nbsp;четыре года выбирал самые сложные роли и&nbsp;умел носить бабочку с&nbsp;серьёзным видом.</p>
+        <p class="reveal" style="--d: 360ms">Через много лет он&nbsp;найдёт ту&nbsp;самую — и&nbsp;позовёт всех вас отметить это вместе с&nbsp;ним.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOCK 5 · DRESS CODE ============ -->
+  <section class="container" id="dress">
+    <span class="section-num">№ 04 · Платье</span>
+
+    <div class="dress__head">
+      <h2 class="section-heading reveal">
+        Дресс-код,<br/><em>но&nbsp;скорее&nbsp;настроение</em>
+      </h2>
+      <p class="lead reveal" style="--d: 150ms">
+        Не&nbsp;форма, а&nbsp;палитра. Светлая, спокойная, без&nbsp;кричащих оттенков — чтобы вечер сложился в&nbsp;один тон.
+      </p>
+    </div>
+
+    <div class="swatches">
+      <div class="swatch reveal" style="--d: 0ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #F8EEDA, var(--p-cream) 70%);"></div>
+        <div class="swatch__name">Шёлк</div>
+        <div class="swatch__cite">кремовый<br/>слоновая&nbsp;кость</div>
+      </div>
+      <div class="swatch reveal" style="--d: 140ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #BFD3DE, var(--p-blue) 70%);"></div>
+        <div class="swatch__name">Дымчатый&nbsp;голубой</div>
+        <div class="swatch__cite">приглушённый<br/>fa&iuml;ence</div>
+      </div>
+      <div class="swatch reveal" style="--d: 280ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #CCDCC9, var(--p-sage) 70%);"></div>
+        <div class="swatch__name">Шалфей</div>
+        <div class="swatch__cite">мягкая<br/>зелень</div>
+      </div>
+      <div class="swatch reveal" style="--d: 420ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #C5C6C2, var(--p-pearl) 70%);"></div>
+        <div class="swatch__name">Жемчужный</div>
+        <div class="swatch__cite">тёплый<br/>серый</div>
+      </div>
+    </div>
+
+    <p class="dress__after reveal">
+      Эти цвета — ориентир, не&nbsp;правило. Достаточно одного тёплого штриха в&nbsp;образе.
+    </p>
+
+    <p class="dress__pinterest reveal" style="--d: 150ms">
+      Доска с&nbsp;примерами образов —
+      <a class="link-underline" href="https://pin.it/70Zs6jbbi" target="_blank" rel="noopener">на&nbsp;Pinterest</a>
+    </p>
+  </section>
+
+  <!-- ============ BLOCK 6 · GIFTS ============ -->
+  <section class="container" id="gifts">
+    <span class="section-num">№ 05 · Жесты</span>
+
+    <h2 class="section-heading reveal">
+      <em>Подарки</em>
+    </h2>
+    <p class="lead reveal" style="--d: 100ms">
+      Самым тёплым подарком будет ваше присутствие. Если хочется большего — две подсказки.
+    </p>
+
+    <div class="gifts__grid">
+      <div class="gift reveal">
+        <svg class="gift__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <g filter="url(#pencilFilter)">
+            <path d="M6 18 L58 18 L58 50 L6 50 Z"/>
+            <path d="M6 18 L32 36 L58 18"/>
+            <circle cx="32" cy="42" r="3.4"/>
+            <path d="M30 42 L34 42"/>
+          </g>
+        </svg>
+        <span class="caps caps--brass gift__kicker">конверт</span>
+        <h3>Тёплый&nbsp;жест</h3>
+        <p>Самым ценным подарком будет конверт с&nbsp;несколькими словами от&nbsp;вас. Эти слова останутся с&nbsp;нами надолго.</p>
+      </div>
+
+      <div class="gift reveal" style="--d: 200ms">
+        <svg class="gift__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <g filter="url(#pencilFilter2)">
+            <path d="M32 54 L32 30"/>
+            <path d="M32 30 C 22 22, 14 24, 12 32 C 16 36, 26 36, 32 30 Z"/>
+            <path d="M32 30 C 42 22, 50 24, 52 32 C 48 36, 38 36, 32 30 Z"/>
+            <path d="M32 24 C 28 18, 30 12, 34 12 C 36 16, 36 22, 32 24 Z"/>
+            <path d="M22 54 L42 54"/>
+          </g>
+        </svg>
+        <span class="caps caps--brass gift__kicker">вместо цветов</span>
+        <h3>Цветочная&nbsp;подписка</h3>
+        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите Валерии цветочную подписку. Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-mono reveal">А &amp; В</div>
+  <span class="caps caps--mute reveal" style="--d: 200ms">XI · IX · MMXXVI</span>
+  <div class="foot-rule reveal" style="--d: 400ms"></div>
+  <span class="caps caps--mute reveal" style="--d: 600ms">Санкт-Петербург · Крестовский остров</span>
+</footer>
+
+<script>
+(() => {
+  // pencil-draw lengths
+  document.querySelectorAll('.drawPath').forEach(p => {
+    try {
+      const len = Math.ceil(p.getTotalLength()) + 4;
+      p.style.setProperty('--len', len);
+      p.style.setProperty('--dur', `${p.dataset.dur || 1600}ms`);
+      p.style.setProperty('--d',   `${p.dataset.delay || 0}ms`);
+    } catch (e) {}
+  });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal, .lineReveal, .drawPath').forEach(el => io.observe(el));
+
+  // hero items must fire on load (above the fold)
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .reveal, .hero .lineReveal').forEach(el => el.classList.add('in'));
+  });
+
+  // topbar appears after hero
+  const tb = document.getElementById('topbar');
+  const hero = document.getElementById('hero');
+  const tbObs = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      tb.classList.toggle('show', !en.isIntersecting);
+    });
+  }, { threshold: 0.05 });
+  tbObs.observe(hero);
+})();
+</script>
+
+</body>
+</html>
