@@ -680,8 +680,8 @@
                    M 112,68 L 110,76" />
 
           <!-- ============ ТЕННИС (Антон, слева, разбросано) ============ -->
-          <!-- ракетка 1, наклон -28° -->
-          <g transform="rotate(-28 22 50)">
+          <!-- ракетка 1, наклон -28°, уменьшено до 70% -->
+          <g transform="rotate(-28 22 50) translate(22 50) scale(0.7) translate(-22 -50)">
             <path class="drawPath" data-dur="1800" data-delay="3200"
                   stroke="var(--pencil-1)" stroke-width="1.5"
                   d="M 22,30
@@ -701,8 +701,8 @@
                      M 34,32 L 32,68" />
           </g>
 
-          <!-- ракетка 2, наклон +32° -->
-          <g transform="rotate(32 35 88)">
+          <!-- ракетка 2, наклон +32°, уменьшено до 70% -->
+          <g transform="rotate(32 35 88) translate(35 88) scale(0.7) translate(-35 -88)">
             <path class="drawPath" data-dur="1800" data-delay="3800"
                   stroke="var(--pencil-1)" stroke-width="1.5"
                   d="M 35,70
@@ -720,8 +720,8 @@
                      M 38,72 L 42,106" />
           </g>
 
-          <!-- теннисный мячик, чуть отдельно -->
-          <g transform="rotate(-15 60 22)">
+          <!-- теннисный мячик, чуть отдельно, уменьшено до 70% -->
+          <g transform="rotate(-15 60 22) translate(60 22) scale(0.7) translate(-60 -22)">
             <path class="drawPath" data-dur="900" data-delay="5600"
                   stroke="var(--pencil-4)" stroke-width="1.2"
                   d="M 60,12
@@ -733,8 +733,8 @@
           </g>
 
           <!-- ============ ВИНИЛ + КАМЕРА (Лера, справа, разбросано) ============ -->
-          <!-- винил, наклон +18° -->
-          <g transform="rotate(18 178 36)">
+          <!-- винил, наклон +18°, уменьшено до 70% -->
+          <g transform="rotate(18 178 36) translate(178 36) scale(0.7) translate(-178 -36)">
             <path class="drawPath" data-dur="2000" data-delay="3200"
                   stroke="var(--pencil-1)" stroke-width="1.5"
                   d="M 178,12
@@ -754,8 +754,8 @@
                      C 182,40 182,32 178,32 Z" />
           </g>
 
-          <!-- плёночная камера, наклон -14° -->
-          <g transform="rotate(-14 175 100)">
+          <!-- плёночная камера, наклон -14°, уменьшено до 70% -->
+          <g transform="rotate(-14 175 100) translate(175 100) scale(0.7) translate(-175 -100)">
             <path class="drawPath" data-dur="2000" data-delay="4200"
                   stroke="var(--pencil-1)" stroke-width="1.5"
                   d="M 150,86
@@ -961,90 +961,73 @@
                      M 78,17 L 80,-3
                      M 88,17 L 91,0" />
 
-            <!-- пианино: крупный рояль, выходит за рамку фото для объёма -->
-            <!-- корпус (крышка передняя) -->
-            <path class="drawPath" data-dur="2400" data-delay="2600"
-                  stroke="var(--pencil-1)" stroke-width="1.8"
-                  d="M -8,166
-                     L 132,166
-                     L 132,186
-                     L -8,186 Z
-                     M -8,186 L 132,186" />
+            <!-- пианино: перевёрнуто клавишами вверх, наклонено,
+                 клавиатура на уровне рук (y≈168), корпус ниже к ножкам.
+                 Группа повёрнута -14° вокруг (60,180), сбоку выходит за рамку фото. -->
+            <g transform="rotate(-14 60 180)">
 
-            <!-- клавиатура -->
-            <path class="drawPath" data-dur="1500" data-delay="4800"
-                  stroke="var(--pencil-4)" stroke-width="1.5"
-                  d="M -4,186 L 128,186
-                     L 128,208 L -4,208 Z" />
+              <!-- корпус (массив под клавиатурой) -->
+              <path class="drawPath" data-dur="2400" data-delay="2600"
+                    stroke="var(--pencil-1)" stroke-width="1.8"
+                    d="M -10,180
+                       L 130,180
+                       L 130,228
+                       L -10,228 Z" />
 
-            <!-- белые клавиши -->
-            <path class="drawPath" data-dur="1800" data-delay="6000"
-                  stroke="var(--pencil-2)" stroke-width="1.0"
-                  d="M 4,186 L 4,208
-                     M 12,186 L 12,208
-                     M 20,186 L 20,208
-                     M 28,186 L 28,208
-                     M 36,186 L 36,208
-                     M 44,186 L 44,208
-                     M 52,186 L 52,208
-                     M 60,186 L 60,208
-                     M 68,186 L 68,208
-                     M 76,186 L 76,208
-                     M 84,186 L 84,208
-                     M 92,186 L 92,208
-                     M 100,186 L 100,208
-                     M 108,186 L 108,208
-                     M 116,186 L 116,208
-                     M 124,186 L 124,208" />
+              <!-- клавиатура: горизонтальная полоса НАВЕРХУ корпуса -->
+              <path class="drawPath" data-dur="1500" data-delay="4800"
+                    stroke="var(--pencil-4)" stroke-width="1.5"
+                    d="M -10,166 L 130,166
+                       L 130,180 L -10,180 Z" />
 
-            <!-- чёрные клавиши, толстые -->
-            <path class="drawPath" data-dur="1500" data-delay="7500"
-                  stroke="var(--pencil-3)" stroke-width="2.8"
-                  d="M 8,186  L 8,197
-                     M 16,186 L 16,197
-                     M 32,186 L 32,197
-                     M 40,186 L 40,197
-                     M 48,186 L 48,197
-                     M 64,186 L 64,197
-                     M 72,186 L 72,197
-                     M 88,186 L 88,197
-                     M 96,186 L 96,197
-                     M 104,186 L 104,197
-                     M 120,186 L 120,197" />
+              <!-- белые клавиши: вертикальные деления на клавиатуре -->
+              <path class="drawPath" data-dur="1800" data-delay="6000"
+                    stroke="var(--pencil-2)" stroke-width="1.0"
+                    d="M -2,166 L -2,180
+                       M 6,166 L 6,180
+                       M 14,166 L 14,180
+                       M 22,166 L 22,180
+                       M 30,166 L 30,180
+                       M 38,166 L 38,180
+                       M 46,166 L 46,180
+                       M 54,166 L 54,180
+                       M 62,166 L 62,180
+                       M 70,166 L 70,180
+                       M 78,166 L 78,180
+                       M 86,166 L 86,180
+                       M 94,166 L 94,180
+                       M 102,166 L 102,180
+                       M 110,166 L 110,180
+                       M 118,166 L 118,180
+                       M 126,166 L 126,180" />
 
-            <!-- ножки массивные -->
-            <path class="drawPath" data-dur="1100" data-delay="9000"
-                  stroke="var(--pencil-1)" stroke-width="1.6"
-                  d="M 4,208 L 4,242
-                     M 124,208 L 124,242
-                     M -6,244  L 18,244
-                     M 110,244 L 134,244
-                     M 62,208 L 62,238
-                     M 54,240 L 70,240" />
+              <!-- чёрные клавиши, толстые, в верхней половине клавиатуры -->
+              <path class="drawPath" data-dur="1500" data-delay="7500"
+                    stroke="var(--pencil-3)" stroke-width="2.8"
+                    d="M 2,166  L 2,174
+                       M 10,166 L 10,174
+                       M 26,166 L 26,174
+                       M 34,166 L 34,174
+                       M 42,166 L 42,174
+                       M 58,166 L 58,174
+                       M 66,166 L 66,174
+                       M 82,166 L 82,174
+                       M 90,166 L 90,174
+                       M 98,166 L 98,174
+                       M 114,166 L 114,174
+                       M 122,166 L 122,174" />
 
-            <!-- крышка-пюпитр поднята -->
-            <path class="drawPath" data-dur="1200" data-delay="10100"
-                  stroke="var(--pencil-1)" stroke-width="1.4"
-                  d="M 16,166 L 30,140 L 108,140 L 108,166
-                     M 30,140 L 108,140" />
+              <!-- ножки массивные снизу корпуса -->
+              <path class="drawPath" data-dur="1100" data-delay="9000"
+                    stroke="var(--pencil-1)" stroke-width="1.6"
+                    d="M 0,228 L 0,256
+                       M 120,228 L 120,256
+                       M -10,258 L 14,258
+                       M 106,258 L 134,258
+                       M 60,228 L 60,254
+                       M 52,256 L 70,256" />
 
-            <!-- ноты-восьмушки -->
-            <path class="drawPath" data-dur="1200" data-delay="11300"
-                  stroke="var(--pencil-3)" stroke-width="1.4"
-                  d="M 46,132
-                     C 42,134 42,140 48,140
-                     C 51,140 51,134 48,134
-                     L 48,118 L 64,114 L 64,132
-                     C 60,134 60,140 66,140
-                     C 69,140 69,134 66,134
-                     M 48,118 L 64,114" />
-
-            <!-- нотный стан -->
-            <path class="drawPath" data-dur="1100" data-delay="12300"
-                  stroke="var(--pencil-2)" stroke-width="0.7"
-                  d="M 24,152 L 92,152
-                     M 24,156 L 92,156
-                     M 24,160 L 92,160" />
+            </g>
           </g>
         </svg>
       </div>
