@@ -1221,17 +1221,23 @@
 
 <script>
 (() => {
-  // pencil-draw lengths
+  // pencil-draw lengths (с fallback'ом для iOS Safari)
   document.querySelectorAll('.drawPath').forEach(p => {
-    try {
-      const len = Math.ceil(p.getTotalLength()) + 4;
+    let len = 0;
+    try { len = Math.ceil(p.getTotalLength()) + 4; } catch (e) {}
+    if (!len || !isFinite(len) || len < 4) {
+      // fallback: рендерим путь статически без анимации
+      p.style.strokeDasharray = 'none';
+      p.style.strokeDashoffset = '0';
+      p.classList.add('in');
+    } else {
       p.style.setProperty('--len', len);
-      p.style.setProperty('--dur', `${p.dataset.dur || 1600}ms`);
-      p.style.setProperty('--d',   `${p.dataset.delay || 0}ms`);
-    } catch (e) {}
+    }
+    p.style.setProperty('--dur', `${p.dataset.dur || 1600}ms`);
+    p.style.setProperty('--d',   `${p.dataset.delay || 0}ms`);
   });
 
-  // reveal on scroll
+  // reveal on scroll (только для блочных элементов, не SVG path)
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (en.isIntersecting) {
@@ -1241,7 +1247,29 @@
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
 
-  document.querySelectorAll('.reveal, .lineReveal, .drawPath').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal, .lineReveal').forEach(el => io.observe(el));
+
+  // pencil overlays: наблюдаем контейнеры (надёжнее на iOS Safari),
+  // при появлении в кадре триггерим все вложенные .drawPath
+  const pencilObs = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.querySelectorAll('.drawPath').forEach(p => p.classList.add('in'));
+        pencilObs.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+  document.querySelectorAll('.couple, .child__photo').forEach(el => pencilObs.observe(el));
+
+  // safety fallback: через 5 секунд после load принудительно отрисовать
+  // все pencil-пути, которые ещё не получили класс .in (на случай если
+  // IntersectionObserver не сработал — например, прокрутили слишком быстро)
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.drawPath:not(.in)').forEach(p => p.classList.add('in'));
+    }, 5000);
+  });
 
   // hero items must fire on load (above the fold)
   window.addEventListener('load', () => {
