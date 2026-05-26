@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#F2EDE4" />
-<title>Антон и Валерия · XI · IX · MMXXVI</title>
+<title>Антон и Валерия · 11 сентября 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --ivory:    #F2EDE4;
@@ -29,7 +29,7 @@
     --p-sage:   #B9CDB8;
     --p-pearl:  #B3B5B0;
 
-    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --display: 'EB Garamond', 'Times New Roman', serif;
     --ui: 'Inter', -apple-system, system-ui, sans-serif;
 
     --col-w: min(1180px, 92vw);
@@ -402,11 +402,13 @@
 
   /* pencil paths */
   .drawPath {
-    stroke-dasharray: var(--len, 1000);
-    stroke-dashoffset: var(--len, 1000);
+    stroke-dasharray: var(--len, 9999);
+    stroke-dashoffset: var(--len, 9999);
     transition: stroke-dashoffset var(--dur, 1600ms) var(--ease);
     transition-delay: var(--d, 0ms);
+    visibility: hidden;
   }
+  .drawPath[data-measured="1"] { visibility: visible; }
   .drawPath.in { stroke-dashoffset: 0; }
 
   /* DRESS */
@@ -416,8 +418,8 @@
   }
   .swatches {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 56px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
     max-width: 980px;
   }
   .swatch {
@@ -535,32 +537,42 @@
   @media (max-width: 860px) {
     .where__grid {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 28px;
     }
     .where__divider { display: none; }
     .child {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 64px;
     }
     .child.reverse { grid-template-columns: 1fr; }
     .child.reverse .child__photo { order: 1; }
     .child.reverse .child__text  { order: 2; }
     .swatches {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
     }
     .swatch__name { font-size: 14px; }
     .swatch__cite { display: none; }
     .gifts__grid {
       grid-template-columns: 1fr;
-      gap: 56px;
+      gap: 40px;
     }
     .hero__meta { gap: 28px; }
-    section { padding: 14vh 5vw; }
+    section { padding: 8vh 5vw; }
+    .section-num {
+      position: static;
+      display: block;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .section-num.right { text-align: left; }
   }
 
   @media (max-width: 480px) {
-    .swatches { grid-template-columns: repeat(2, 1fr); gap: 28px 18px; }
+    .swatches { grid-template-columns: repeat(3, 1fr); gap: 22px 16px; }
+    section { padding: 6vh 5vw; }
+    .child { gap: 72px; }
+    .gifts__grid { gap: 36px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -591,7 +603,6 @@
 <header class="topbar" id="topbar">
   <span class="mono">А · В</span>
   <span class="label">приглашение</span>
-  <span class="label">XI · IX · MMXXVI</span>
 </header>
 
 <main>
@@ -611,15 +622,15 @@
     <div class="hero__meta">
       <div class="reveal" style="--d:1300ms">
         <span class="caps caps--mute">день</span>
-        <span class="val">одиннадцатое сентября</span>
+        <span class="val">11 сентября</span>
       </div>
       <div class="reveal" style="--d:1450ms">
         <span class="caps caps--mute">место</span>
-        <span class="val">особняк Путилова · Крестовский</span>
+        <span class="val">Особняк Путилова</span>
       </div>
       <div class="reveal" style="--d:1600ms">
-        <span class="caps caps--mute">час</span>
-        <span class="val">пятнадцать ноль ноль</span>
+        <span class="caps caps--mute">время</span>
+        <span class="val">15:00</span>
       </div>
     </div>
 
@@ -782,14 +793,9 @@
         </g>
       </svg>
     </div>
-    <div class="couple__caption reveal" style="--d: 200ms">
-      <span class="caps caps--mute">Антон · Валерия · MMXXVI</span>
-      <span class="caps caps--mute">приглашение</span>
-    </div>
-
     <div class="container" style="margin-top: 14vh; max-width: 720px;">
       <p class="lead reveal">
-        Приглашаем разделить с нами этот вечер — без церемонной торжественности, в кругу самых близких.
+        Привет! Приглашаем тебя разделить с&nbsp;нами трогательный момент и&nbsp;отпраздновать любовь.
       </p>
     </div>
   </section>
@@ -804,17 +810,14 @@
 
     <div class="where__grid">
       <div class="where__col reveal">
-        <span class="caps caps--mute">день и&nbsp;час</span>
-        <h3>Одиннадцатого сентября,<br/>к&nbsp;трём часам пополудни</h3>
-        <p>Будем ждать вас заранее — встреча гостей с&nbsp;<span class="where__time">14:30</span>, церемония в&nbsp;15:00.</p>
+        <h3>11&nbsp;сентября 15:00</h3>
       </div>
 
       <div class="where__divider reveal" style="--d: 150ms"></div>
 
       <div class="where__col reveal" style="--d: 300ms">
-        <span class="caps caps--mute">место</span>
-        <h3>Особняк&nbsp;Путилова,<br/>Крестовский&nbsp;остров</h3>
-        <p>Санкт-Петербург, исторический особняк начала XX&nbsp;века. Точный адрес и&nbsp;схему проезда отправим ближе к&nbsp;дате.</p>
+        <h3>Особняк&nbsp;Путилова</h3>
+        <p>проспект&nbsp;Динамо,&nbsp;№&nbsp;2Б</p>
       </div>
     </div>
   </section>
@@ -951,9 +954,8 @@
 
       <div class="child__text">
         <h2 class="reveal"><em>Валерия</em></h2>
-        <p class="caps caps--mute reveal" style="--d:120ms">Валерия · детство · с&nbsp;букетом</p>
-        <p class="reveal" style="--d: 220ms">Та, что с&nbsp;детства собирала букеты во&nbsp;дворе и&nbsp;уверенно знала, какой цветок где растёт.</p>
-        <p class="reveal" style="--d: 360ms">К сентябрю она пройдёт длинный путь от&nbsp;этой курточки до&nbsp;свадебного платья — и&nbsp;нам хочется, чтобы вы&nbsp;были рядом в&nbsp;этот день.</p>
+        <p class="reveal" style="--d: 220ms">Та, что была скромным и&nbsp;послушным ребёнком с&nbsp;добрым сердцем.</p>
+        <p class="reveal" style="--d: 360ms">К сентябрю она пройдёт длинный путь от&nbsp;детских воспоминаний до&nbsp;свадебного платья — и&nbsp;ей хочется, чтобы вы&nbsp;были рядом в&nbsp;этот день.</p>
       </div>
     </div>
   </section>
@@ -1106,7 +1108,6 @@
 
       <div class="child__text">
         <h2 class="reveal"><em>Антон</em></h2>
-        <p class="caps caps--mute reveal" style="--d:120ms">Антон · детство · карнавал</p>
         <p class="reveal" style="--d: 220ms">Тот, что в&nbsp;четыре года выбирал самые сложные роли и&nbsp;умел носить бабочку с&nbsp;серьёзным видом.</p>
         <p class="reveal" style="--d: 360ms">Через много лет он&nbsp;найдёт ту&nbsp;самую — и&nbsp;позовёт всех вас отметить это вместе с&nbsp;ним.</p>
       </div>
@@ -1115,43 +1116,31 @@
 
   <!-- ============ BLOCK 5 · DRESS CODE ============ -->
   <section class="container" id="dress">
-    <span class="section-num">№ 04 · Платье</span>
+    <span class="section-num">№ 04 · Дресс-код</span>
 
     <div class="dress__head">
       <h2 class="section-heading reveal">
         Дресс-код,<br/><em>но&nbsp;скорее&nbsp;настроение</em>
       </h2>
-      <p class="lead reveal" style="--d: 150ms">
-        Не&nbsp;форма, а&nbsp;палитра. Светлая, спокойная, без&nbsp;кричащих оттенков — чтобы вечер сложился в&nbsp;один тон.
-      </p>
     </div>
 
     <div class="swatches">
       <div class="swatch reveal" style="--d: 0ms">
-        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #F8EEDA, var(--p-cream) 70%);"></div>
-        <div class="swatch__name">Шёлк</div>
-        <div class="swatch__cite">кремовый<br/>слоновая&nbsp;кость</div>
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #F0CFD4, #E5BAC0 70%);"></div>
       </div>
-      <div class="swatch reveal" style="--d: 140ms">
-        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #BFD3DE, var(--p-blue) 70%);"></div>
-        <div class="swatch__name">Дымчатый&nbsp;голубой</div>
-        <div class="swatch__cite">приглушённый<br/>fa&iuml;ence</div>
+      <div class="swatch reveal" style="--d: 120ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #FAF6BE, #F5F0A8 70%);"></div>
       </div>
-      <div class="swatch reveal" style="--d: 280ms">
-        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #CCDCC9, var(--p-sage) 70%);"></div>
-        <div class="swatch__name">Шалфей</div>
-        <div class="swatch__cite">мягкая<br/>зелень</div>
+      <div class="swatch reveal" style="--d: 240ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #DCEFFA, #C8E6F5 70%);"></div>
       </div>
-      <div class="swatch reveal" style="--d: 420ms">
-        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #C5C6C2, var(--p-pearl) 70%);"></div>
-        <div class="swatch__name">Жемчужный</div>
-        <div class="swatch__cite">тёплый<br/>серый</div>
+      <div class="swatch reveal" style="--d: 360ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #A8C07F, #92AC65 70%);"></div>
+      </div>
+      <div class="swatch reveal" style="--d: 480ms">
+        <div class="swatch__circle" style="background: radial-gradient(circle at 30% 30%, #DADAD8, #C9C9C7 70%);"></div>
       </div>
     </div>
-
-    <p class="dress__after reveal">
-      Эти цвета — ориентир, не&nbsp;правило. Достаточно одного тёплого штриха в&nbsp;образе.
-    </p>
 
     <p class="dress__pinterest reveal" style="--d: 150ms">
       Доска с&nbsp;примерами образов —
@@ -1205,7 +1194,7 @@
         </svg>
         <span class="caps caps--brass gift__kicker">вместо цветов</span>
         <h3>Цветочная&nbsp;подписка</h3>
-        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите Валерии цветочную подписку. Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
+        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите молодожёнам цветочную подписку. Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
       </div>
     </div>
   </section>
@@ -1214,28 +1203,50 @@
 
 <footer>
   <div class="foot-mono reveal">А &amp; В</div>
-  <span class="caps caps--mute reveal" style="--d: 200ms">XI · IX · MMXXVI</span>
+  <span class="caps caps--mute reveal" style="--d: 200ms">11 сентября 2026</span>
   <div class="foot-rule reveal" style="--d: 400ms"></div>
-  <span class="caps caps--mute reveal" style="--d: 600ms">Санкт-Петербург · Крестовский остров</span>
+  <span class="caps caps--mute reveal" style="--d: 600ms">Санкт-Петербург · Особняк&nbsp;Путилова</span>
 </footer>
 
 <script>
 (() => {
-  // pencil-draw lengths (с fallback'ом для iOS Safari)
-  document.querySelectorAll('.drawPath').forEach(p => {
-    let len = 0;
-    try { len = Math.ceil(p.getTotalLength()) + 4; } catch (e) {}
-    if (!len || !isFinite(len) || len < 4) {
-      // fallback: рендерим путь статически без анимации
-      p.style.strokeDasharray = 'none';
-      p.style.strokeDashoffset = '0';
-      p.classList.add('in');
-    } else {
-      p.style.setProperty('--len', len);
-    }
+  // pencil-draw lengths — стартуем с заведомо большой длиной, потом измеряем
+  const drawPaths = Array.from(document.querySelectorAll('.drawPath'));
+  drawPaths.forEach(p => {
+    // безопасный стартовый стейт через CSS-переменную (а не inline style),
+    // чтобы класс .in мог переопределить stroke-dashoffset
+    p.style.setProperty('--len', 9999);
     p.style.setProperty('--dur', `${p.dataset.dur || 1600}ms`);
     p.style.setProperty('--d',   `${p.dataset.delay || 0}ms`);
   });
+
+  function measurePaths() {
+    let pending = false;
+    drawPaths.forEach(p => {
+      if (p.dataset.measured === '1') return;
+      let len = 0;
+      try { len = Math.ceil(p.getTotalLength()) + 4; } catch (e) {}
+      if (len && isFinite(len) && len >= 4) {
+        p.style.setProperty('--len', len);
+        p.dataset.measured = '1';
+      } else {
+        pending = true;
+      }
+    });
+    return !pending;
+  }
+
+  // первая попытка сразу
+  if (!measurePaths()) {
+    // повтор после рендера и после load — на случай Safari
+    requestAnimationFrame(() => {
+      if (!measurePaths()) {
+        window.addEventListener('load', () => {
+          setTimeout(measurePaths, 100);
+        });
+      }
+    });
+  }
 
   // reveal on scroll (только для блочных элементов, не SVG path)
   const io = new IntersectionObserver((entries) => {
@@ -1258,18 +1269,9 @@
         pencilObs.unobserve(en.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+  }, { threshold: 0.35, rootMargin: '0px 0px -15% 0px' });
 
   document.querySelectorAll('.couple, .child__photo').forEach(el => pencilObs.observe(el));
-
-  // safety fallback: через 5 секунд после load принудительно отрисовать
-  // все pencil-пути, которые ещё не получили класс .in (на случай если
-  // IntersectionObserver не сработал — например, прокрутили слишком быстро)
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.querySelectorAll('.drawPath:not(.in)').forEach(p => p.classList.add('in'));
-    }, 5000);
-  });
 
   // hero items must fire on load (above the fold)
   window.addEventListener('load', () => {
