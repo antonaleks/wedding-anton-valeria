@@ -416,6 +416,10 @@
     max-width: 720px;
     margin-bottom: 56px;
   }
+  .dress__head .section-heading {
+    font-size: clamp(40px, 5.4vw, 72px);
+    overflow-wrap: break-word;
+  }
   .swatches {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -469,27 +473,78 @@
     gap: 80px;
     max-width: 1040px;
     margin-top: 32px;
+    align-items: start;
   }
   .gift {
     padding-top: 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 22px;
+    row-gap: 0;
+    align-items: center;
   }
   .gift__icon {
-    height: 64px;
-    margin-bottom: 28px;
+    height: 56px;
+    width: 56px;
     color: var(--brass);
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    flex-shrink: 0;
   }
   .gift__kicker {
     margin-bottom: 14px;
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
   .gift h3 {
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
     font-size: clamp(28px, 3.4vw, 40px);
-    margin: 0 0 16px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 2.2em;
+    display: flex;
+    align-items: flex-end;
+  }
+  .gift p {
+    margin: 16px 0 0;
+    max-width: 380px;
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  /* ORGANIZERS */
+  .organizers__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    max-width: 720px;
+    margin-top: 40px;
+  }
+  .organizer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .organizer__phone {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(22px, 2.6vw, 28px);
     color: var(--ink);
   }
-  .gift p { margin: 0; max-width: 380px; }
+  .organizers__tg {
+    display: inline-block;
+    margin-top: 36px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
 
   /* FOOTER */
   footer {
@@ -542,7 +597,7 @@
     .where__divider { display: none; }
     .child {
       grid-template-columns: 1fr;
-      gap: 64px;
+      gap: 140px;
     }
     .child.reverse { grid-template-columns: 1fr; }
     .child.reverse .child__photo { order: 1; }
@@ -556,6 +611,10 @@
     .gifts__grid {
       grid-template-columns: 1fr;
       gap: 40px;
+    }
+    .organizers__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
     .hero__meta { gap: 28px; }
     section { padding: 8vh 5vw; }
@@ -571,7 +630,7 @@
   @media (max-width: 480px) {
     .swatches { grid-template-columns: repeat(3, 1fr); gap: 22px 16px; }
     section { padding: 6vh 5vw; }
-    .child { gap: 72px; }
+    .child { gap: 160px; }
     .gifts__grid { gap: 36px; }
   }
 
@@ -602,14 +661,14 @@
 
 <header class="topbar" id="topbar">
   <span class="mono">А · В</span>
-  <span class="label">приглашение</span>
+  <span class="label">приглашение&nbsp;на&nbsp;свадьбу</span>
 </header>
 
 <main>
 
   <!-- ============ BLOCK 1 · HERO ============ -->
   <section class="hero" id="hero">
-    <span class="caps caps--brass hero__kicker reveal" style="--d: 100ms">приглашение</span>
+    <span class="caps caps--brass hero__kicker reveal" style="--d: 100ms">приглашение&nbsp;на&nbsp;свадьбу</span>
 
     <h1 class="hero__title">
       <span class="lineReveal" style="--d:0ms"><span>Антон</span></span>
@@ -626,7 +685,7 @@
       </div>
       <div class="reveal" style="--d:1450ms">
         <span class="caps caps--mute">место</span>
-        <span class="val">Особняк Путилова</span>
+        <a class="val link-underline" href="https://yandex.com.tr/maps/org/putilov_mansion/210906022409/?ll=30.282143,59.972220&amp;z=13" target="_blank" rel="noopener">Особняк&nbsp;Путилова</a>
       </div>
       <div class="reveal" style="--d:1600ms">
         <span class="caps caps--mute">время</span>
@@ -816,7 +875,9 @@
       <div class="where__divider reveal" style="--d: 150ms"></div>
 
       <div class="where__col reveal" style="--d: 300ms">
-        <h3>Особняк&nbsp;Путилова</h3>
+        <h3>
+          <a class="link-underline" href="https://yandex.com.tr/maps/org/putilov_mansion/210906022409/?ll=30.282143,59.972220&amp;z=13" target="_blank" rel="noopener">Особняк&nbsp;Путилова</a>
+        </h3>
         <p>проспект&nbsp;Динамо,&nbsp;№&nbsp;2Б</p>
       </div>
     </div>
@@ -1016,8 +1077,8 @@
             <!-- РОЯЛЬ квази-3D, ножки строго вертикальные.
                  Клавиатура — параллелограмм (перспектива к пальцам Антона).
                  Корпус D-shape + задний контур-смещение для глубины.
-                 Дополнительный сдвиг вниз через translate(0 14) на всей группе. -->
-            <g transform="translate(0 14)">
+                 Сдвиг вверх через translate(0 -8), чтобы ножки не наезжали на имя ниже фото. -->
+            <g transform="translate(0 -8)">
 
             <!-- задний контур корпуса (теневая глубина -2 по y) -->
             <path class="drawPath" data-dur="2400" data-delay="2400"
@@ -1120,7 +1181,7 @@
 
     <div class="dress__head">
       <h2 class="section-heading reveal">
-        Дресс-код,<br/><em>но&nbsp;скорее&nbsp;настроение</em>
+        Дресс-код,<br/><em>но&nbsp;скорее настроение</em>
       </h2>
     </div>
 
@@ -1194,9 +1255,36 @@
         </svg>
         <span class="caps caps--brass gift__kicker">вместо цветов</span>
         <h3>Цветочная&nbsp;подписка</h3>
-        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите молодожёнам цветочную подписку. Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
+        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите молодожёнам цветочную подписку <span style="white-space: nowrap;"><a class="link-underline" href="https://etopolubvi-flowers.ru/" target="_blank" rel="noopener">«Это по&nbsp;любви»</a>.</span> Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ============ BLOCK 7 · ORGANIZERS ============ -->
+  <section class="container" id="organizers">
+    <span class="section-num right">№ 06 · Контакты</span>
+
+    <h2 class="section-heading reveal">
+      По всем <em>вопросам</em>
+    </h2>
+    <p class="lead reveal" style="--d: 100ms">
+      Свяжитесь с&nbsp;нашими организаторами&nbsp;— Platina&nbsp;Wedding.
+    </p>
+
+    <div class="organizers__grid">
+      <div class="organizer reveal">
+        <span class="caps caps--brass">Александра</span>
+        <a class="organizer__phone link-underline" href="tel:+79618052435">+7&nbsp;(961)&nbsp;805-24-35</a>
+      </div>
+      <div class="organizer reveal" style="--d: 150ms">
+        <span class="caps caps--brass">Кристина</span>
+        <a class="organizer__phone link-underline" href="tel:+79117548255">+7&nbsp;(911)&nbsp;754-82-55</a>
+      </div>
+    </div>
+
+    <a class="organizers__tg reveal" style="--d: 300ms" href="https://t.me/Platina_Wedding" target="_blank" rel="noopener">
+      Telegram&nbsp;— <span class="link-underline">@Platina_Wedding</span>
+    </a>
   </section>
 
 </main>
@@ -1205,7 +1293,7 @@
   <div class="foot-mono reveal">А &amp; В</div>
   <span class="caps caps--mute reveal" style="--d: 200ms">11 сентября 2026</span>
   <div class="foot-rule reveal" style="--d: 400ms"></div>
-  <span class="caps caps--mute reveal" style="--d: 600ms">Санкт-Петербург · Особняк&nbsp;Путилова</span>
+  <span class="caps caps--mute reveal" style="--d: 600ms">Санкт-Петербург · <a class="link-underline" href="https://yandex.com.tr/maps/org/putilov_mansion/210906022409/?ll=30.282143,59.972220&amp;z=13" target="_blank" rel="noopener">Особняк&nbsp;Путилова</a></span>
 </footer>
 
 <script>
