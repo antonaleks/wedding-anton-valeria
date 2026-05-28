@@ -726,7 +726,9 @@
   <!-- supporting couple photo + lead -->
   <section style="padding-top: 0; padding-bottom: 14vh;">
     <div class="couple reveal">
-      <img src="assets/photos/couple.jpeg" alt="Антон и Валерия" loading="lazy" />
+      <picture>
+        <source srcset="assets/photos/couple.webp" type="image/webp" />
+        <img src="assets/photos/couple.jpeg" alt="Антон и Валерия" loading="lazy" decoding="async" /></picture>
       <!--
         pencil overlay для центрального фото
         viewBox 180 × 120 (= 3/2, под couple aspect-ratio)
@@ -913,7 +915,10 @@
 
     <div class="child">
       <div class="child__photo reveal" style="--ar: 3/4; --mw: 340px;">
-        <img src="assets/photos/valeria-child.png" alt="Валерия в детстве" loading="lazy" />
+        <picture>
+          <source srcset="assets/photos/valeria-child.webp" type="image/webp" />
+          <img src="assets/photos/valeria-child.png" alt="Валерия в детстве" loading="lazy" decoding="async" />
+        </picture>
         <!--
           pencil overlay
           viewBox 124 × 342 (overlay aspect = photo_aspect 412/1192 × inset-multipliers → ~0.363, unit одинаков по X/Y)
@@ -1051,7 +1056,10 @@
 
     <div class="child reverse">
       <div class="child__photo reveal" style="--ar: 232/479; --mw: 340px;">
-        <img src="assets/photos/anton-child.png" alt="Антон в детстве" loading="lazy" />
+        <picture>
+          <source srcset="assets/photos/anton-child.webp" type="image/webp" />
+          <img src="assets/photos/anton-child.png" alt="Антон в детстве" loading="lazy" decoding="async" />
+        </picture>
         <!--
           pencil overlay
           viewBox 124 × 244 (aspect 0.508 = photo 232/479 × inset)
