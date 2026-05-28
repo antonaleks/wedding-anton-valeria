@@ -153,6 +153,7 @@
     padding: 14vh 5vw 8vh;
     position: relative;
     text-align: center;
+    isolation: isolate;
   }
   .hero__kicker {
     margin-bottom: 36px;
@@ -515,7 +516,30 @@
     margin: 16px 0 0;
     max-width: 380px;
     grid-column: 1 / -1;
-    grid-row: 3;
+  }
+  .gift__note {
+    font-size: 14px;
+    opacity: 0.72;
+    line-height: 1.6;
+  }
+  .gift__btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 22px;
+    padding: 14px 26px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--brass);
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .gift__btn:hover {
+    background: var(--brass);
+    color: var(--paper);
   }
 
   /* ORGANIZERS */
@@ -1255,7 +1279,9 @@
         </svg>
         <span class="caps caps--brass gift__kicker">вместо цветов</span>
         <h3>Цветочная&nbsp;подписка</h3>
-        <p>Букеты быстро увядают. Вместо них&nbsp;— подарите молодожёнам цветочную подписку <span style="white-space: nowrap;"><a class="link-underline" href="https://etopolubvi-flowers.ru/" target="_blank" rel="noopener">«Это по&nbsp;любви»</a>.</span> Свежие букеты будут приходить каждую неделю и&nbsp;напоминать о&nbsp;вас.</p>
+        <p>Будем рады, если вместо букета в&nbsp;день свадьбы вы&nbsp;пополните счёт нашей цветочной подписки&nbsp;— цветы будут приходить нам домой в&nbsp;течение года и&nbsp;продлят ощущение праздника.</p>
+        <p class="gift__note">На&nbsp;странице выберите сумму, укажите своё имя и&nbsp;телефон, а&nbsp;в&nbsp;поле получателя&nbsp;— имя и&nbsp;телефон невесты: Валерия,&nbsp;+7&nbsp;916&nbsp;831&nbsp;68&nbsp;28.</p>
+        <a class="btn-ghost gift__btn" href="https://etopolubvi-flowers.ru/tproduct/280232562052-svadebnaya-podpiska" target="_blank" rel="noopener">Пополнить счёт подписки</a>
       </div>
     </div>
   </section>
